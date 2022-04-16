@@ -1,4 +1,4 @@
-import { FunctionComponent, ReactNode } from "react";
+import { FunctionComponent, ReactNode, useMemo } from "react";
 import type { Color, Size } from "@config/types";
 import { classes } from "./utils";
 
@@ -9,16 +9,16 @@ type Props = {
 };
 
 const Button: FunctionComponent<Props> = ({ children, color, size = "md" }) => {
-  console.log(classes.color(color));
+  const className = useMemo(
+    () =>
+      [...classes.base, ...classes.color(color), ...classes.size(size)].join(
+        " "
+      ),
+    [color, size]
+  );
+
   return (
-    <button
-      type="button"
-      className={[
-        ...classes.base,
-        ...classes.color(color),
-        ...classes.size(size),
-      ].join(" ")}
-    >
+    <button type="button" className={className}>
       {children}
     </button>
   );
