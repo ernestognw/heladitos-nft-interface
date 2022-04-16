@@ -1,4 +1,6 @@
 // Keeyp in sync with tailwind.config.js
-export type Color = "purple" | "mint" | "grape";
+export const colors = ["mint", "grape", "purple", "strawberry"] as const;
+export type Color = typeof colors[number];
 
-export type Size = "sm" | "md" | "lg" | "xl";
+export const sizes = ["sm", "md", "lg", "xl"];
+export type Size = typeof sizes[number];
