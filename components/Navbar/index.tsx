@@ -16,7 +16,7 @@ const Navbar: FunctionComponent = () => {
                 <a
                   key={name}
                   href={href}
-                  className="text-white py-2 rounded-md text-sm font-medium"
+                  className="text-white hover:text-gray-200 py-2 rounded-md text-sm font-medium"
                 >
                   {name}
                 </a>

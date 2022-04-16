@@ -4,8 +4,8 @@ import { FunctionComponent } from "react";
 const About: FunctionComponent = () => {
   return (
     <div className="bg-orange-red-500 flex flex-col items-center justify-center">
-      <div className="max-w-4xl px-4 sm:px-6 lg:px-8 py-20 w-full">
-        <h3 className="text-4xl font-bold">The ice-cream revolution</h3>
+      <div className="max-w-4xl px-4 sm:px-6 lg:px-8 py-14 w-full">
+        <h3 className="text-3xl font-bold">The ice-cream revolution</h3>
         <div className="flex items-center justify-center my-10">
           <Image
             src="/index/video-player.png"
@@ -14,7 +14,7 @@ const About: FunctionComponent = () => {
             height={430}
           />
         </div>
-        <h4 className="text-3xl mb-4">Summer 2030:</h4>
+        <h4 className="text-2xl mb-4">Summer 2030:</h4>
         <p className="mt-4">
           A sunny day, extreme heat and the planet{`'`}s emergency still around.
         </p>

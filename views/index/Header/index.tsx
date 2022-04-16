@@ -9,8 +9,8 @@ const Header: FunctionComponent = () => {
         <Image
           src="/brand/logo.png"
           alt="Heladitos NFT"
-          width={645}
-          height={243}
+          width={1075}
+          height={405}
         />
         <h1 className="mt-10 text-white text-3xl text-center">
           Heladitos NFT, aka Little ice creams

@@ -33,6 +33,8 @@ const config: Config = {
       "bg-strawberry-500 hover:bg-strawberry-600 focus:bg-strawberry-600 active:bg-strawberry-700",
     "orange-red":
       "bg-orange-red-500 hover:bg-orange-red-600 focus:bg-orange-red-600 active:bg-orange-red-700",
+    mango:
+      "bg-mango-500 hover:bg-mango-600 focus:bg-mango-600 active:bg-mango-700",
   },
   sizes: {
     sm: "text-sm px-5 py-1.5",
