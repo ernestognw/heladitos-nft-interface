@@ -11,11 +11,14 @@ type Props = {
 const Step: FunctionComponent<Props> = ({ src, alt, title, subtitle }) => {
   return (
     <div className="flex flex-col flex-1">
-      <div className="mx-auto">
-        <Image src={src} alt={alt} width={330} height={330} />
+      <div className="hidden md:block mx-auto">
+        <Image src={src} alt={alt} width={200} height={200} />
       </div>
-      <p className="text-2xl mt-6 text-center">{title}</p>
-      <p className="mt-2 text-center">{subtitle}</p>
+      <div className="md:hidden mx-auto">
+        <Image src={src} alt={alt} width={200} height={200} />
+      </div>
+      <p className="text-2xl mt-6 ">{title}</p>
+      <p className="mt-2 ">{subtitle}</p>
     </div>
   );
 };
