@@ -4,26 +4,26 @@ import { Button } from "@components/Button";
 
 const Header: FunctionComponent = () => {
   return (
-    <div className="min-h-screen pt-16 -mt-16 bg-purple-500 flex flex-col items-center justify-center">
-      <div className="max-w-7xl px-4 sm:px-6 lg:px-8 flex flex-col items-center justify-center">
+    <header className="min-h-screen bg-purple-500 flex flex-col items-center justify-center">
+      <div className="max-w-4xl px-4 sm:px-6 lg:px-8 flex flex-col items-center justify-center">
         <Image
-          src="/brand/logo.svg"
+          src="/brand/logo.png"
           alt="Heladitos NFT"
-          width={600}
-          height={300}
+          width={645}
+          height={243}
         />
-        <h1 className="text-white text-3xl text-center">
+        <h1 className="mt-10 text-white text-3xl text-center">
           Heladitos NFT, aka Little ice creams
         </h1>
-        <h2 className="mt-4 max-w-xl text-white text-md text-center">
+        <p className="mt-4 max-w-xl text-white text-md text-center">
           A collection of 10,000 political ice-creams customized by the people
           and minted on the Ethereum Blockchain with the ERC-721 Standard.
-        </h2>
+        </p>
         <Button size="xl" className="mt-10" color="strawberry">
           Create now
         </Button>
       </div>
-    </div>
+    </header>
   );
 };
 

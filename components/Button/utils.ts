@@ -22,7 +22,7 @@ type Config = {
 };
 
 const config: Config = {
-  base: "text-black font-bold rounded-[99999px] shadow-md hover:shadow-lg focus:shadow-lg focus:outline-none focus:ring-0 active:shadow-lg transition duration-150 ease-in-out border-2 border-black",
+  base: "text-black font-bold rounded-[99999px] shadow-md hover:shadow-lg focus:shadow-lg focus:outline-none focus:ring-0 active:shadow-lg transition duration-150 ease-in-out border-4 border-black",
   colors: {
     mint: "bg-mint-500 hover:bg-mint-600 focus:bg-mint-600 active:bg-mint-700",
     grape:
@@ -31,12 +31,14 @@ const config: Config = {
       "bg-purple-500 hover:bg-purple-600 focus:bg-purple-600 active:bg-purple-700",
     strawberry:
       "bg-strawberry-500 hover:bg-strawberry-600 focus:bg-strawberry-600 active:bg-strawberry-700",
+    "orange-red":
+      "bg-orange-red-500 hover:bg-orange-red-600 focus:bg-orange-red-600 active:bg-orange-red-700",
   },
   sizes: {
-    sm: "text-sm px-3 py-1.5",
-    md: "text-md px-4 py-2",
-    lg: "text-md px-5 py-2.5",
-    xl: "text-lg px-6 py-3",
+    sm: "text-sm px-5 py-1.5",
+    md: "text-md px-6 py-2",
+    lg: "text-md px-7 py-2.5",
+    xl: "text-lg px-8 py-3",
   },
 };
 

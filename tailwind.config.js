@@ -5,6 +5,7 @@ const colors = {
   mint: "#55EAAB",
   grape: "#9F50FF",
   strawberry: "#FF7DEA",
+  "orange-red": "#F86848",
 };
 
 module.exports = {
