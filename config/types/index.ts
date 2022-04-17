@@ -6,6 +6,7 @@ export const colors = [
   "strawberry",
   "orange-red",
   "mango",
+  "sky-blue",
 ] as const;
 export type Color = typeof colors[number];
 

@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { FunctionComponent } from "react";
+import { FC } from "react";
 
 type Props = {
   src: string;
@@ -8,7 +8,7 @@ type Props = {
   subtitle: string;
 };
 
-const Step: FunctionComponent<Props> = ({ src, alt, title, subtitle }) => {
+const Step: FC<Props> = ({ src, alt, title, subtitle }) => {
   return (
     <div className="flex flex-col flex-1">
       <div className="hidden md:block mx-auto">

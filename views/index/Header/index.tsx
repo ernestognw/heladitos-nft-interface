@@ -1,8 +1,8 @@
-import { FunctionComponent } from "react";
+import { FC } from "react";
 import Image from "next/image";
 import { Button } from "@components/Button";
 
-const Header: FunctionComponent = () => {
+const Header: FC = () => {
   return (
     <header className="min-h-screen bg-purple-500 flex flex-col items-center justify-center">
       <div className="max-w-4xl px-4 sm:px-6 lg:px-8 flex flex-col items-center justify-center">

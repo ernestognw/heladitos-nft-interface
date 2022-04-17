@@ -3,6 +3,7 @@ import Navbar from "@components/Navbar";
 import Header from "@views/index/Header";
 import About from "@views/index/About";
 import Refresh from "@views/index/Refresh";
+import Transparency from "@views/index/Transparency";
 
 const Index: NextPage = () => {
   return (
@@ -11,6 +12,7 @@ const Index: NextPage = () => {
       <Header />
       <About />
       <Refresh />
+      <Transparency />
     </>
   );
 };

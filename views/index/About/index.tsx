@@ -1,7 +1,7 @@
 import Image from "next/image";
-import { FunctionComponent } from "react";
+import { FC } from "react";
 
-const About: FunctionComponent = () => {
+const About: FC = () => {
   return (
     <div className="bg-orange-red-500 flex flex-col items-center justify-center">
       <div className="max-w-4xl px-4 sm:px-6 lg:px-8 py-14 w-full">

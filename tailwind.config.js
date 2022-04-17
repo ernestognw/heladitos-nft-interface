@@ -7,6 +7,7 @@ const colors = {
   strawberry: "#FF7DEA",
   "orange-red": "#F86848",
   mango: "#FFC700",
+  "sky-blue": "#88C9F9",
 };
 
 module.exports = {

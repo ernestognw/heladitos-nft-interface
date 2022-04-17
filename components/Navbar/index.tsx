@@ -1,9 +1,9 @@
-import { FunctionComponent, useState } from "react";
+import { FC, useState } from "react";
 import { Transition } from "@headlessui/react";
 import { Button } from "@components/Button";
 import { routes } from "./utils";
 
-const Navbar: FunctionComponent = () => {
+const Navbar: FC = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -67,9 +67,7 @@ const Navbar: FunctionComponent = () => {
               )}
             </button>
           </div>
-          <Button size="sm" color="mint">
-            Connect wallet
-          </Button>
+          <Button color="mint">Connect wallet</Button>
         </div>
       </div>
       <Transition
