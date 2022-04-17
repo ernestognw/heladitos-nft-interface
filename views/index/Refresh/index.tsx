@@ -5,7 +5,7 @@ import Step from "./Step";
 const Refresh: FC = () => {
   return (
     <div className="bg-mango-500 flex flex-col items-center justify-center">
-      <div className="max-w-4xl px-4 sm:px-6 lg:px-8 py-14 w-full">
+      <div className="max-w-6xl px-4 sm:px-6 lg:px-8 py-14 w-full">
         <h3 className="text-3xl font-bold">Refresh yourself now!</h3>
         <h4 className="text-2xl mt-4">
           The protest is ongoing and the sun is burning.
@@ -15,7 +15,7 @@ const Refresh: FC = () => {
           justice and decentralization
         </p>
       </div>
-      <div className="max-w-5xl px-4 sm:px-6 lg:px-8 py-14 w-full flex sm:space-x-14 space-y-14 sm:space-y-0 flex-col sm:flex-row">
+      <div className="max-w-7xl px-4 sm:px-6 lg:px-8 py-14 w-full flex sm:space-x-14 space-y-14 sm:space-y-0 flex-col sm:flex-row">
         <Step
           src="/index/step-1.png"
           alt="Connect your wallet"

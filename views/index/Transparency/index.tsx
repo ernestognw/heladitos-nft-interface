@@ -6,7 +6,7 @@ const Transparency: FC = () => {
   return (
     <div className="bg-sky-blue-500 flex flex-col items-center justify-center">
       <div className="bg-[url('/index/clouds.svg')] bg-cover w-full flex items-center justify-center">
-        <div className="max-w-5xl pl-4 pr-8 sm:pl-6 lg:px-8 pt-14 pb-[150px] w-full relative">
+        <div className="max-w-7xl pl-4 pr-8 sm:pl-6 lg:px-8 pt-14 pb-[150px] w-full relative">
           <div className="relative">
             <div className="bg-[#BFE5F1] opacity-70 absolute w-full rounded-lg drop-shadow-[16px_20px_0_rgba(0,0,0,1)]">
               {/* This is to make the cristal container to have text height */}

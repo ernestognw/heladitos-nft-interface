@@ -4,7 +4,7 @@ import { FC } from "react";
 const About: FC = () => {
   return (
     <div className="bg-orange-red-500 flex flex-col items-center justify-center">
-      <div className="max-w-4xl px-4 sm:px-6 lg:px-8 py-14 w-full">
+      <div className="max-w-6xl px-4 sm:px-6 lg:px-8 py-14 w-full">
         <h3 className="text-3xl font-bold">The ice-cream revolution</h3>
         <div className="flex items-center justify-center my-10">
           <Image

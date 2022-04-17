@@ -5,7 +5,7 @@ import { Button } from "@components/Button";
 const Header: FC = () => {
   return (
     <header className="min-h-screen bg-purple-500 flex flex-col items-center justify-center">
-      <div className="max-w-4xl px-4 sm:px-6 lg:px-8 flex flex-col items-center justify-center">
+      <div className="max-w-6xl px-4 sm:px-6 lg:px-8 flex flex-col items-center justify-center">
         <div className="z-10">
           <Image
             src="/brand/logo.png"
