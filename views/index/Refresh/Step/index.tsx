@@ -11,10 +11,7 @@ type Props = {
 const Step: FC<Props> = ({ src, alt, title, subtitle }) => {
   return (
     <div className="flex flex-col flex-1">
-      <div className="hidden md:block mx-auto">
-        <Image src={src} alt={alt} width={200} height={200} />
-      </div>
-      <div className="md:hidden mx-auto">
+      <div className="mx-auto">
         <Image src={src} alt={alt} width={200} height={200} />
       </div>
       <p className="text-2xl mt-6 ">{title}</p>
