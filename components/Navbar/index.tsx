@@ -99,7 +99,7 @@ const Navbar: FC = () => {
 
                     if (chain.unsupported) {
                       return (
-                        <Button onClick={openChainModal} color="mint">
+                        <Button onClick={openChainModal} color="orange-red">
                           Wrong network
                         </Button>
                       );
