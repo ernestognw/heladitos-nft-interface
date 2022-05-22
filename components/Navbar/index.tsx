@@ -1,7 +1,6 @@
 import { FC, useState } from "react";
 import { Transition } from "@headlessui/react";
-import { Button } from "@components/Button";
-import { ConnectButton } from "@rainbow-me/rainbowkit";
+import ConnectButton from "./ConnectButton";
 import { routes } from "./utils";
 
 const Navbar: FC = () => {
@@ -68,88 +67,7 @@ const Navbar: FC = () => {
               )}
             </button>
           </div>
-          <ConnectButton.Custom>
-            {({
-              account,
-              chain,
-              openAccountModal,
-              openChainModal,
-              openConnectModal,
-              mounted,
-            }) => {
-              return (
-                <div
-                  {...(!mounted && {
-                    "aria-hidden": true,
-                    style: {
-                      opacity: 0,
-                      pointerEvents: "none",
-                      userSelect: "none",
-                    },
-                  })}
-                >
-                  {(() => {
-                    if (!mounted || !account || !chain) {
-                      return (
-                        <Button onClick={openConnectModal} color="mint">
-                          Connect wallet
-                        </Button>
-                      );
-                    }
-
-                    if (chain.unsupported) {
-                      return (
-                        <Button onClick={openChainModal} color="orange-red">
-                          Wrong network
-                        </Button>
-                      );
-                    }
-
-                    return (
-                      <div style={{ display: "flex", gap: 12 }}>
-                        <Button
-                          onClick={openChainModal}
-                          style={{ display: "flex", alignItems: "center" }}
-                          color="mango"
-                          size="sm"
-                        >
-                          {chain.hasIcon && (
-                            <div
-                              style={{
-                                background: chain.iconBackground,
-                                width: 12,
-                                height: 12,
-                                borderRadius: 999,
-                                overflow: "hidden",
-                                marginRight: 4,
-                              }}
-                            >
-                              {chain.iconUrl && (
-                                // eslint-disable-next-line @next/next/no-img-element
-                                <img
-                                  alt={chain.name ?? "Chain icon"}
-                                  src={chain.iconUrl}
-                                  style={{ width: 12, height: 12 }}
-                                />
-                              )}
-                            </div>
-                          )}
-                          {chain.name}
-                        </Button>
-
-                        <Button onClick={openAccountModal} color="sky-blue" size="sm">
-                          {account.displayName}
-                          {account.displayBalance
-                            ? ` (${account.displayBalance})`
-                            : ""}
-                        </Button>
-                      </div>
-                    );
-                  })()}
-                </div>
-              );
-            }}
-          </ConnectButton.Custom>
+          <ConnectButton />
         </div>
       </div>
       <Transition

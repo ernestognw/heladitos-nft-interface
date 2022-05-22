@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { Button } from "@components/Button";
+import Button from "@components/Button";
 
 interface Props {
   className?: string;
@@ -42,7 +42,9 @@ const Text: FC<Props> = ({ className, ...props }: Props) => {
       <p className="mt-1">
         <span className="font-bold">Verified Smart Contract:</span> 0x23...123
       </p>
-      <Button color="mango" className="mt-6">View in Etherscan</Button>
+      <Button color="mango" className="mt-6">
+        View in Etherscan
+      </Button>
     </div>
   );
 };

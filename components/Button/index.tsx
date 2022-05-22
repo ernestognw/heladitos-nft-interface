@@ -28,4 +28,4 @@ const Button: FunctionComponent<Props> = ({
   );
 };
 
-export { Button };
+export default Button;

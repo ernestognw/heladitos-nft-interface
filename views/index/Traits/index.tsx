@@ -1,4 +1,4 @@
-import { Button } from "@components/Button";
+import Button from "@components/Button";
 import Image from "next/image";
 import { FC } from "react";
 import Trait from "./Trait";
