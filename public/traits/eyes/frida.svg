@@ -1,0 +1,14 @@
+<svg width="1000" height="1000" viewBox="0 0 1000 1000" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M334.225 486.638C356.8 486.638 375.1 468.337 375.1 445.763C375.1 423.188 356.8 404.888 334.225 404.888C311.65 404.888 293.35 423.188 293.35 445.763C293.35 468.337 311.65 486.638 334.225 486.638Z" fill="black"/>
+<ellipse rx="17.0312" ry="19.075" transform="matrix(-1 0 0 1 322.644 445.763)" fill="white"/>
+<line x1="282.657" y1="404.888" x2="301.086" y2="423.317" stroke="black" stroke-width="8" stroke-linecap="round"/>
+<line x1="4" y1="-4" x2="30.0625" y2="-4" transform="matrix(-0.707107 0.707107 0.707107 0.707107 392.373 404.888)" stroke="black" stroke-width="8" stroke-linecap="round"/>
+<line x1="334.138" y1="383" x2="334.138" y2="409.062" stroke="black" stroke-width="8" stroke-linecap="round"/>
+<path d="M459.738 488C482.312 488 500.613 469.7 500.613 447.125C500.613 424.55 482.312 406.25 459.738 406.25C437.163 406.25 418.863 424.55 418.863 447.125C418.863 469.7 437.163 488 459.738 488Z" fill="black"/>
+<ellipse rx="15.6687" ry="17.7125" transform="matrix(-1 0 0 1 446.794 447.125)" fill="white"/>
+<line x1="408.17" y1="404.888" x2="426.599" y2="423.317" stroke="black" stroke-width="8" stroke-linecap="round"/>
+<line x1="4" y1="-4" x2="30.0625" y2="-4" transform="matrix(-0.707107 0.707107 0.707107 0.707107 517.886 404.888)" stroke="black" stroke-width="8" stroke-linecap="round"/>
+<line x1="459.65" y1="383" x2="459.65" y2="409.062" stroke="black" stroke-width="8" stroke-linecap="round"/>
+<path d="M266 392C284.958 368.607 337.5 335.856 396 392" stroke="black" stroke-width="16" stroke-linecap="round"/>
+<path d="M396 392C414.958 368.607 467.5 335.856 526 392" stroke="black" stroke-width="16" stroke-linecap="round"/>
+</svg>

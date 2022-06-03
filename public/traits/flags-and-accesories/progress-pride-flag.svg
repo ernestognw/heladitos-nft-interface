@@ -1,0 +1,19 @@
+<svg width="1000" height="1000" viewBox="0 0 1000 1000" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect x="607" y="443.73" width="26" height="556" fill="black"/>
+<circle cx="620" cy="425" r="22.5" fill="white" stroke="black" stroke-width="5"/>
+<path d="M632 432.571C630.44 434.95 628.223 436.804 625.629 437.899C623.035 438.994 620.181 439.28 617.427 438.722C614.673 438.164 612.143 436.786 610.158 434.763C608.173 432.74 606.821 430.163 606.273 427.357C605.725 424.551 606.006 421.643 607.081 419" stroke="#C4C4C4" stroke-width="7" stroke-linecap="round"/>
+<rect x="584" y="460" width="392" height="50" fill="#E40303" stroke="black" stroke-width="8"/>
+<rect x="584" y="510" width="392" height="50" fill="#FF8C00" stroke="black" stroke-width="8"/>
+<rect x="584" y="560" width="392" height="50" fill="#FFED00" stroke="black" stroke-width="8"/>
+<rect x="584" y="610" width="392" height="50" fill="#008026" stroke="black" stroke-width="8"/>
+<rect x="584" y="660" width="392" height="50" fill="#004DFF" stroke="black" stroke-width="8"/>
+<rect x="584" y="710" width="392" height="50" fill="#750787" stroke="black" stroke-width="8"/>
+<path d="M586 460H614.388L693 610L614.388 760H586L664.612 610L586 460Z" fill="white" stroke="black" stroke-width="8"/>
+<path d="M664 610L586 760V460L664 610Z" fill="#FFED00" stroke="black" stroke-width="8"/>
+<path d="M614 460H642.388L721 610L642.388 760H614L692.612 610L614 460Z" fill="#FF7DEA" stroke="black" stroke-width="8"/>
+<path d="M640 460H668.122L746 610L668.122 760H640L717.878 610L640 460Z" fill="#88C9F9" stroke="black" stroke-width="8"/>
+<path d="M664 460H692.388L771 610L692.388 760H664L742.612 610L664 460Z" fill="#5F3016" stroke="black" stroke-width="8"/>
+<path d="M689 460H717.388L796 610L717.388 760H689L767.612 610L689 460Z" fill="#090909" stroke="black" stroke-width="8"/>
+<circle cx="621" cy="610" r="20" stroke="#9F50FF" stroke-width="6"/>
+<rect x="607" y="460" width="73.7647" height="300" fill="black" fill-opacity="0.25"/>
+</svg>
