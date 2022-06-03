@@ -1,4 +1,4 @@
-import { Color, colors, Size, sizes } from "@config/types";
+import { Color, colors, Size } from "@config/types";
 
 // Run when new color is added and the paste the result in the colors config
 // Needed since tailwind doesn't allow dynamic class generation (wtf!)
@@ -22,7 +22,7 @@ type Config = {
 };
 
 const config: Config = {
-  base: "text-black font-bold rounded-[99999px] shadow-md hover:shadow-lg focus:shadow-lg focus:outline-none focus:ring-0 active:shadow-lg transition duration-150 ease-in-out border-4 border-black",
+  base: "text-black font-bold rounded-[99999px] shadow-md hover:shadow-lg focus:shadow-lg focus:outline-none focus:ring-0 active:shadow-lg transition duration-150 ease-in-out border-black",
   colors: {
     mint: "bg-mint-500 hover:bg-mint-600 focus:bg-mint-600 active:bg-mint-700",
     grape:
@@ -37,12 +37,16 @@ const config: Config = {
       "bg-mango-500 hover:bg-mango-600 focus:bg-mango-600 active:bg-mango-700",
     "sky-blue":
       "bg-sky-blue-500 hover:bg-sky-blue-600 focus:bg-sky-blue-600 active:bg-sky-blue-700",
+    blueberry:
+      "bg-blueberry-500 hover:bg-blueberry-600 focus:bg-blueberry-600 active:bg-blueberry-700",
+    white: "bg-gray-100 hover:bg-gray-200 focus:bg-gray-200 active:bg-gray-300",
   },
   sizes: {
-    sm: "text-sm px-5 py-1.5",
-    md: "text-md px-6 py-2",
-    lg: "text-md px-7 py-2.5",
-    xl: "text-lg px-8 py-3",
+    xs: "text-xs px-4 py-1 border-2",
+    sm: "text-sm px-5 py-1.5 border-4",
+    md: "text-md px-6 py-2 border-4",
+    lg: "text-md px-7 py-2.5 border-4",
+    xl: "text-lg px-8 py-3 border-4",
   },
 };
 

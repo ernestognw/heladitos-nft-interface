@@ -1,5 +1,7 @@
 import { FC } from "react";
+import routes from "@config/routes";
 import Image from "next/image";
+import Link from "next/link";
 import Button from "@components/Button";
 
 const Header: FC = () => {
@@ -37,9 +39,11 @@ const Header: FC = () => {
           A collection of 10,000 political ice-creams customized by the people
           and minted on the Ethereum Blockchain with the ERC-721 Standard.
         </p>
-        <Button size="xl" className="mt-10 z-10" color="strawberry">
-          Create now
-        </Button>
+        <Link href={routes.create} passHref>
+          <Button size="xl" className="mt-10 z-10" color="strawberry">
+            Create now
+          </Button>
+        </Link>
       </div>
     </header>
   );

@@ -1,4 +1,4 @@
-import { FunctionComponent, ReactNode, useMemo } from "react";
+import { FC, forwardRef, ReactNode } from "react";
 import type { Color, Size } from "@config/types";
 import { config } from "./utils";
 
@@ -10,22 +10,21 @@ interface Props {
   [key: string]: any;
 }
 
-const Button: FunctionComponent<Props> = ({
-  children,
-  color,
-  size = "md",
-  className,
-  ...props
-}: Props) => {
-  return (
-    <button
-      type="button"
-      className={`${config.base} ${config.colors[color]} ${config.sizes[size]} ${className}`}
-      {...props}
-    >
-      {children}
-    </button>
-  );
-};
+const Button: FC<Props> = forwardRef<HTMLButtonElement, Props>(
+  ({ children, color, size = "md", className = "", ...props }, ref) => {
+    return (
+      <button
+        type="button"
+        className={`${config.base} ${config.colors[color]} ${config.sizes[size]} ${className}`}
+        {...props}
+        ref={ref}
+      >
+        {children}
+      </button>
+    );
+  }
+);
+
+Button.displayName = "Button";
 
 export default Button;

@@ -55,54 +55,27 @@ const Inner: FC<Props> = ({
 
   if (!mounted || !account || !chain) {
     content = (
-      <Button onClick={openConnectModal} color="mint">
+      <Button onClick={openConnectModal} color="mint" size="sm">
         Connect wallet
       </Button>
     );
   } else if (chain.unsupported) {
     content = (
-      <Button onClick={openChainModal} color="orange-red">
+      <Button onClick={openChainModal} color="mango" size="sm">
         Wrong network
       </Button>
     );
   } else {
     content = (
-      <div className="gap-3 flex">
-        <Button
-          onClick={openChainModal}
-          className="flex items-center"
-          color="mango"
-          size="sm"
-        >
-          {chain.hasIcon && (
-            <div
-              style={{
-                background: chain.iconBackground,
-              }}
-              className="overflow-hidden md:mr-2 h-4 w-4 rounded-[99999px]"
-            >
-              {chain.iconUrl && (
-                // eslint-disable-next-line @next/next/no-img-element
-                <img
-                  alt={chain.name ?? "Chain icon"}
-                  src={chain.iconUrl}
-                  className="h-4 w-4"
-                />
-              )}
-            </div>
-          )}
-          <span className="hidden md:block">{chain.name}</span>
-        </Button>
-        <Button
-          onClick={openAccountModal}
-          color="sky-blue"
-          size="sm"
-          className="flex"
-        >
-          {account.displayName}
-          {account.displayBalance ? ` ${account.displayBalance}` : ""}
-        </Button>
-      </div>
+      <Button
+        onClick={openAccountModal}
+        color="mint"
+        size="sm"
+        className="flex"
+      >
+        {account.displayBalance ?? ""}
+        {` ${account.displayName}`}
+      </Button>
     );
   }
 

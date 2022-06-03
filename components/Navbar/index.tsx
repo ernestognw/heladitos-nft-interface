@@ -1,7 +1,10 @@
 import { FC, useState } from "react";
 import { Transition } from "@headlessui/react";
 import ConnectButton from "./ConnectButton";
-import { routes } from "./utils";
+import { navRoutes } from "./utils";
+import routes from "@config/routes";
+import Link from "next/link";
+import Button from "@components/Button";
 
 const Navbar: FC = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -12,14 +15,12 @@ const Navbar: FC = () => {
         <div className="flex items-center justify-between h-16">
           <div className="hidden md:block flex items-center">
             <div className="flex items-baseline space-x-14">
-              {routes.map(({ name, href }) => (
-                <a
-                  key={name}
-                  href={href}
-                  className="text-white hover:text-gray-200 py-2 rounded-md text-sm font-medium"
-                >
-                  {name}
-                </a>
+              {navRoutes.map(({ name, href }) => (
+                <Link key={name} href={href} passHref>
+                  <a className="text-white hover:text-gray-200 py-2 rounded-md text-sm font-medium">
+                    {name}
+                  </a>
+                </Link>
               ))}
             </div>
           </div>
@@ -67,7 +68,14 @@ const Navbar: FC = () => {
               )}
             </button>
           </div>
-          <ConnectButton />
+          <div className="flex gap-3">
+            <ConnectButton />
+            <Link href={routes.create} passHref>
+              <Button size="sm" color="strawberry">
+                Create
+              </Button>
+            </Link>
+          </div>
         </div>
       </div>
       <Transition
@@ -81,7 +89,7 @@ const Navbar: FC = () => {
       >
         <div className="md:hidden" id="mobile-menu">
           <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-            {routes.map(({ name, href }) => (
+            {navRoutes.map(({ name, href }) => (
               <a
                 key={name}
                 href={href}

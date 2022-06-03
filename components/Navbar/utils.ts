@@ -1,24 +1,24 @@
-const routes = [
+const navRoutes = [
   {
     name: "Home",
-    href: "#",
+    href: "/#",
   },
   {
     name: "Story",
-    href: "#",
+    href: "/#",
   },
   {
     name: "Transparency",
-    href: "#",
+    href: "/#",
   },
   {
     name: "Roadmap",
-    href: "#",
+    href: "/#",
   },
   {
     name: "FAQ & Dictionary",
-    href: "#",
+    href: "/#",
   },
 ];
 
-export { routes };
+export { navRoutes };

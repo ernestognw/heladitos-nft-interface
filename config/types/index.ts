@@ -7,8 +7,10 @@ export const colors = [
   "orange-red",
   "mango",
   "sky-blue",
+  "blueberry",
+  "white",
 ] as const;
 export type Color = typeof colors[number];
 
-export const sizes = ["sm", "md", "lg", "xl"];
+export const sizes = ["xs", "sm", "md", "lg", "xl"];
 export type Size = typeof sizes[number];
