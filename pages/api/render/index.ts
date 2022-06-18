@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { existsSync, readdirSync, readFileSync } from "fs";
 import { join } from "path";
-import { traitsDirectory } from "@config/api";
+import { order, traitsDirectory } from "@config/api";
 import { SelectedTraits } from "@config/api/types";
 import { toHtml } from "hast-util-to-html";
 import { ElementNode, parse } from "svg-parser";
@@ -44,6 +44,7 @@ export default function handler(
   });
 
   const svgElements: ElementContent[] = Object.entries(validTraits)
+    .sort(([traitA], [traitB]) => order[traitB] - order[traitA])
     .map(([trait, variant]) => {
       const file = readFileSync(join(traitsDirectory, trait, `${variant}.svg`));
 
