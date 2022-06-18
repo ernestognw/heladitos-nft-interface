@@ -1,6 +1,5 @@
 import type { NextPage } from "next";
 import Navbar from "@components/Navbar";
-import Image from "next/image";
 import { useEffect } from "react";
 import Preview from "@views/create/Preview";
 
@@ -23,15 +22,6 @@ const Index: NextPage = () => {
             <Preview />
           </div>
         </div>
-      </div>
-      <div className="mt-[-85px] flex justify-center">
-        <Image
-          src="/create/table.svg"
-          alt="Maker table"
-          width={1164}
-          height={280}
-          className="mx-auto ml-auto"
-        />
       </div>
     </>
   );

@@ -51,7 +51,7 @@ const Preview: FC = () => {
   return (
     <div className="mt-4">
       <div className="w-full bg-white shadow-[10px_10px_0px_0px]">
-        <img src={imageUrl} alt="Your Heladito" className="max-w-[500px]" />
+        <img src={imageUrl} alt="Your Heladito" className="max-h-[500px]" />
       </div>
       <div className="flex justify-between mt-6 gap-4">
         <Button color="orange-red" className="flex-1">
