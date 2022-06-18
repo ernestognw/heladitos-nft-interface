@@ -1,13 +1,6 @@
-import getConfig from "next/config";
-import { join } from "path";
+import { resolve } from "path";
 
-const { serverRuntimeConfig } = getConfig();
-
-const traitsDirectory = join(
-  serverRuntimeConfig.PROJECT_ROOT,
-  "./public",
-  "traits"
-);
+const traitsDirectory = resolve("./public", "traits");
 
 const order = [
   "flags-and-accesories",
