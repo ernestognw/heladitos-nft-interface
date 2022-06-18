@@ -1,5 +1,5 @@
 import { FC } from "react";
-import routes from "@config/routes";
+import { routes } from "@config/routes";
 import Image from "next/image";
 import Link from "next/link";
 import Button from "@components/Button";

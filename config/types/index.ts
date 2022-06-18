@@ -14,3 +14,11 @@ export type Color = typeof colors[number];
 
 export const sizes = ["xs", "sm", "md", "lg", "xl"];
 export type Size = typeof sizes[number];
+
+export type Variant = string[];
+
+export type Traits = {
+  [key: string]: Variant;
+};
+
+export type SelectedTraits = { [key: string]: string };

@@ -2,4 +2,9 @@ const routes = {
   create: "/create",
 };
 
-export default routes;
+const endpoints = {
+  render: "/api/render",
+  traits: "/api/traits",
+};
+
+export { routes, endpoints };

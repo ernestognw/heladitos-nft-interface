@@ -2,7 +2,7 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import { existsSync, readFileSync } from "fs";
 import { join } from "path";
 import { orderFile, traitsDirectory } from "@config/api";
-import { SelectedTraits } from "@config/api/types";
+import { SelectedTraits } from "@config/types";
 import { toHtml } from "hast-util-to-html";
 import { ElementNode, parse } from "svg-parser";
 import { Root, ElementContent } from "hast";

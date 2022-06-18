@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { join } from "path";
 import { traitsDirectory } from "@config/api";
-import { Traits } from "@config/api/types";
+import { Traits } from "@config/types";
 import { readSvgs, removeSvg } from "@config/api/utils";
 
 export default function handler(

@@ -2,7 +2,7 @@ import { FC, useState } from "react";
 import { Transition } from "@headlessui/react";
 import ConnectButton from "./ConnectButton";
 import { navRoutes } from "./utils";
-import routes from "@config/routes";
+import { routes } from "@config/routes";
 import Link from "next/link";
 import Button from "@components/Button";
 
