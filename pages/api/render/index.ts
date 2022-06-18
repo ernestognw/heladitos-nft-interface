@@ -1,11 +1,12 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import { existsSync, readdirSync, readFileSync } from "fs";
+import { existsSync, readFileSync } from "fs";
 import { join } from "path";
-import { order, traitsDirectory } from "@config/api";
+import { orderFile, traitsDirectory } from "@config/api";
 import { SelectedTraits } from "@config/api/types";
 import { toHtml } from "hast-util-to-html";
 import { ElementNode, parse } from "svg-parser";
 import { Root, ElementContent } from "hast";
+import { appendSvg, readSvgs, removeSvg } from "@config/api/utils";
 
 export default function handler(
   req: NextApiRequest,
@@ -23,7 +24,7 @@ export default function handler(
       if (Array.isArray(variant)) return acc;
 
       // Check if variant exist, otherwise, omit.
-      const variantDirectory = join(traitsDirectory, trait, `${variant}.svg`);
+      const variantDirectory = join(traitsDirectory, trait, appendSvg(variant));
       if (!existsSync(variantDirectory)) return acc;
 
       acc[trait] = variant;
@@ -34,19 +35,22 @@ export default function handler(
   );
 
   // Complete every missing trait with a default
-  const traitsNames = readdirSync(traitsDirectory);
+  const traitsNames = readSvgs(traitsDirectory);
   traitsNames.forEach((trait) => {
     if (!validTraits[trait])
-      validTraits[trait] = readdirSync(join(traitsDirectory, trait))[0].replace(
-        ".svg",
-        ""
-      );
+      validTraits[trait] = removeSvg(readSvgs(join(traitsDirectory, trait))[0]);
   });
 
   const svgElements: ElementContent[] = Object.entries(validTraits)
-    .sort(([traitA], [traitB]) => order[traitB] - order[traitA])
+    .sort(
+      ([traitA], [traitB]) =>
+        Number(readFileSync(join(traitsDirectory, traitA, orderFile)) ?? 0) -
+        Number(readFileSync(join(traitsDirectory, traitB, orderFile)) ?? 0)
+    )
     .map(([trait, variant]) => {
-      const file = readFileSync(join(traitsDirectory, trait, `${variant}.svg`));
+      const file = readFileSync(
+        join(traitsDirectory, trait, appendSvg(variant))
+      );
 
       // This is horrible I know
       return (parse(file.toString()).children[0] as ElementNode)

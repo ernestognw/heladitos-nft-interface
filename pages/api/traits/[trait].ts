@@ -1,8 +1,9 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import { existsSync, readdirSync } from "fs";
+import { existsSync } from "fs";
 import { join } from "path";
 import { traitsDirectory } from "@config/api";
 import { ApiError, Variant } from "@config/api/types";
+import { readSvgs, removeSvg } from "@config/api/utils";
 
 export default function handler(
   req: NextApiRequest,
@@ -17,9 +18,7 @@ export default function handler(
       .status(404)
       .json({ code: 404, message: `Trait ${trait} does not exist` });
 
-  const variants = readdirSync(variantsDirectory).map((name) =>
-    name.replace(".svg", "")
-  );
+  const variants = readSvgs(variantsDirectory).map(removeSvg);
 
   res.status(200).json(variants);
 }

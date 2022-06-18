@@ -1,24 +1,19 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import { readdirSync } from "fs";
 import { join } from "path";
 import { traitsDirectory } from "@config/api";
 import { Traits } from "@config/api/types";
+import { readSvgs, removeSvg } from "@config/api/utils";
 
 export default function handler(
   _: NextApiRequest,
   res: NextApiResponse<Traits>
 ) {
-  const traitsNames = readdirSync(traitsDirectory);
+  const traitsNames = readSvgs(traitsDirectory);
 
-  const traits = traitsNames.reduce(
-    (acc: Traits, traitName: string) => {
-      acc[traitName] = readdirSync(join(traitsDirectory, traitName)).map(
-        (name) => name.replace(".svg", "")
-      );
-      return acc;
-    },
-    {}
-  );
+  const traits = traitsNames.reduce((acc: Traits, traitName: string) => {
+    acc[traitName] = readSvgs(join(traitsDirectory, traitName)).map(removeSvg);
+    return acc;
+  }, {});
 
   res.status(200).json(traits);
 }
