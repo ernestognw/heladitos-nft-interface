@@ -49,11 +49,15 @@ const getCompletedTraits = (validTraits: SelectedTraits) => {
 
 const getSVGElements = (completedTraits: SelectedTraits): ElementContent[] =>
   Object.entries(completedTraits)
-    .sort(
-      ([traitA], [traitB]) =>
-        Number(readFileSync(join(traitsDirectory, traitA, orderFile)) ?? 0) -
-        Number(readFileSync(join(traitsDirectory, traitB, orderFile)) ?? 0)
-    )
+    .sort(([traitA], [traitB]) => {
+      const pathA = join(traitsDirectory, traitA, orderFile);
+      const pathB = join(traitsDirectory, traitB, orderFile);
+
+      const orderA = existsSync(pathA) ? Number(readFileSync(pathA) ?? 0) : 0;
+      const orderB = existsSync(pathB) ? Number(readFileSync(pathB) ?? 0) : 0;
+
+      return orderA - orderB;
+    })
     .map(([trait, variant]) => {
       const file = readFileSync(
         join(traitsDirectory, trait, appendSvg(variant))
