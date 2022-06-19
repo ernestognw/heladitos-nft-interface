@@ -8,13 +8,10 @@ import { ElementNode, parse } from "svg-parser";
 import { Root, ElementContent } from "hast";
 import { appendSvg, readSvgs, removeSvg } from "@config/api/utils";
 
-export default function handler(
-  req: NextApiRequest,
-  res: NextApiResponse<string>
-) {
-  const { query } = req;
-
-  const validTraits = Object.entries(query).reduce(
+const getValidTraits = (query: {
+  [key: string]: string | string[];
+}): SelectedTraits =>
+  Object.entries(query).reduce(
     (acc: SelectedTraits, [trait, variant]: [string, typeof query[string]]) => {
       // Check if the trait exists. Otherwise, omit
       const traitDirectory = join(traitsDirectory, trait);
@@ -34,14 +31,24 @@ export default function handler(
     {}
   );
 
+const getCompletedTraits = (validTraits: SelectedTraits) => {
+  const completedTraits = {
+    ...validTraits,
+  };
   // Complete every missing trait with a default
   const traitsNames = readSvgs(traitsDirectory);
   traitsNames.forEach((trait) => {
-    if (!validTraits[trait])
-      validTraits[trait] = removeSvg(readSvgs(join(traitsDirectory, trait))[0]);
+    if (!completedTraits[trait])
+      completedTraits[trait] = removeSvg(
+        readSvgs(join(traitsDirectory, trait))[0]
+      );
   });
 
-  const svgElements: ElementContent[] = Object.entries(validTraits)
+  return completedTraits;
+};
+
+const getSVGElements = (completedTraits: SelectedTraits): ElementContent[] =>
+  Object.entries(completedTraits)
     .sort(
       ([traitA], [traitB]) =>
         Number(readFileSync(join(traitsDirectory, traitA, orderFile)) ?? 0) -
@@ -58,6 +65,7 @@ export default function handler(
     })
     .flat();
 
+const getMergedSVG = (svgElements: ElementContent[]): string => {
   const hastNode: Root = {
     type: "root",
     children: [
@@ -75,8 +83,20 @@ export default function handler(
       },
     ],
   };
+  return toHtml(hastNode);
+};
+
+const handler = (req: NextApiRequest, res: NextApiResponse<string>) => {
+  const { query } = req;
+
+  const validTraits = getValidTraits(query);
+  const completedTraits = getCompletedTraits(validTraits);
+  const svgElements = getSVGElements(completedTraits);
+  const mergedSvg = getMergedSVG(svgElements);
 
   res.setHeader("Content-Type", "image/svg+xml");
-  res.status(200).write(toHtml(hastNode));
+  res.status(200).write(mergedSvg);
   res.end();
-}
+};
+
+export default handler;

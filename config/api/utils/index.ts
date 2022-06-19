@@ -1,4 +1,4 @@
-import { PathLike, readdirSync, statSync } from "fs";
+import { readdirSync, statSync } from "fs";
 import { extname, join } from "path";
 
 const removeSvg = (fileName: string) => fileName.replace(".svg", "");

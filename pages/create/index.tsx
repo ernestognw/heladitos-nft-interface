@@ -1,14 +1,29 @@
 import type { NextPage } from "next";
-import Navbar from "@components/Navbar";
-import { useEffect } from "react";
+import { SelectedTraits, Traits } from "@config/types";
+import { getTraits } from "@pages/api/traits";
 import Preview from "@views/create/Preview";
+import Navbar from "@components/Navbar";
+import Selector from "@views/create/Selector";
+import { useEffect, useState } from "react";
 
-const Index: NextPage = () => {
+interface Props {
+  traits: Traits;
+}
+
+const Index: NextPage<Props> = ({ traits }) => {
+  const [isSelectorActive, toggleSelector] = useState(false);
   useEffect(() => {
     const backgroundColor = "bg-gray-500";
     document.body.classList.add(backgroundColor);
     return () => document.body.classList.remove(backgroundColor);
   });
+
+  const [selectedTraits, setSelectedTraits] = useState<SelectedTraits>(
+    Object.entries(traits).reduce((acc: SelectedTraits, [trait, variants]) => {
+      acc[trait] = variants[0];
+      return acc;
+    }, {})
+  );
 
   return (
     <>
@@ -19,12 +34,30 @@ const Index: NextPage = () => {
             <div className="py-2 px-4 w-full bg-mango-500 shadow-[10px_10px_0px_0px]">
               <h2 className="text-3xl font-bold">Your heladito</h2>
             </div>
-            <Preview />
+            <Preview
+              openSelector={() => toggleSelector(true)}
+              traits={traits}
+              setSelectedTraits={setSelectedTraits}
+              selectedTraits={selectedTraits}
+            />
           </div>
         </div>
       </div>
+      <Selector
+        active={isSelectorActive}
+        close={() => toggleSelector(false)}
+        traits={traits}
+        setSelectedTraits={setSelectedTraits}
+        selectedTraits={selectedTraits}
+      />
     </>
   );
 };
+
+export const getStaticProps = async () => ({
+  props: {
+    traits: getTraits(),
+  },
+});
 
 export default Index;

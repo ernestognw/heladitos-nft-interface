@@ -4,10 +4,7 @@ import { traitsDirectory } from "@config/api";
 import { Traits } from "@config/types";
 import { readSvgs, removeSvg } from "@config/api/utils";
 
-export default function handler(
-  _: NextApiRequest,
-  res: NextApiResponse<Traits>
-) {
+export const getTraits = (): Traits => {
   const traitsNames = readSvgs(traitsDirectory);
 
   const traits = traitsNames.reduce((acc: Traits, traitName: string) => {
@@ -15,5 +12,10 @@ export default function handler(
     return acc;
   }, {});
 
-  res.status(200).json(traits);
-}
+  return traits;
+};
+
+const handler = (_: NextApiRequest, res: NextApiResponse<Traits>) =>
+  res.status(200).json(getTraits());
+
+export default handler;

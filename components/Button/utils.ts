@@ -1,4 +1,4 @@
-import { Color, colors, Size } from "@config/types";
+import { Color, Size } from "@config/types";
 
 // Run when new color is added and the paste the result in the colors config
 // Needed since tailwind doesn't allow dynamic class generation (wtf!)
