@@ -1,13 +1,13 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { existsSync } from "fs";
-import { join } from "path";
+import { resolve } from "path";
 import { traitsDirectory } from "@config/api";
 import { Variant } from "@config/types";
 import { readSvgs, removeSvg } from "@config/api/utils";
 import { ApiError } from "@config/api/types";
 
 const getVariants = (trait: string) => {
-  const variantsDirectory = join(traitsDirectory, trait);
+  const variantsDirectory = resolve(traitsDirectory, trait);
 
   if (!existsSync(variantsDirectory)) throw new Error();
 

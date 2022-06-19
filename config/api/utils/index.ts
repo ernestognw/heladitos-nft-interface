@@ -1,5 +1,5 @@
 import { readdirSync, statSync } from "fs";
-import { extname, join } from "path";
+import { extname, resolve } from "path";
 
 const removeSvg = (fileName: string) => fileName.replace(".svg", "");
 const appendSvg = (fileName: string) => `${fileName}.svg`;
@@ -15,7 +15,7 @@ const readSvgs = (
 ) =>
   readdirSync(path, options).filter((file) => {
     const ext = extname(file);
-    if (!ext) return statSync(join(path, file)).isDirectory();
+    if (!ext) return statSync(resolve(path, file)).isDirectory();
     return ext.toLowerCase() === ".svg";
   });
 

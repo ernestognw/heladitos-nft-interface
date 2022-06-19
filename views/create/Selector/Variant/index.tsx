@@ -12,7 +12,7 @@ const Variant: FC<Props> = ({ selected, trait, variant, onClick }) => {
   return (
     <div
       onClick={() => onClick(variant)}
-      className={`bg-gray-200 border-4 flex items-center cursor-pointe border-${
+      className={`bg-gray-200 border-4 flex items-center cursor-pointer border-${
         selected ? "blueberry-500" : "white"
       }`}
     >

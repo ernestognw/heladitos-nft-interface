@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import { join } from "path";
+import { resolve } from "path";
 import { traitsDirectory } from "@config/api";
 import { Traits } from "@config/types";
 import { readSvgs, removeSvg } from "@config/api/utils";
@@ -8,7 +8,9 @@ export const getTraits = (): Traits => {
   const traitsNames = readSvgs(traitsDirectory);
 
   const traits = traitsNames.reduce((acc: Traits, traitName: string) => {
-    acc[traitName] = readSvgs(join(traitsDirectory, traitName)).map(removeSvg);
+    acc[traitName] = readSvgs(resolve(traitsDirectory, traitName)).map(
+      removeSvg
+    );
     return acc;
   }, {});
 

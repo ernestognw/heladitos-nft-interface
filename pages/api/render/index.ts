@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { existsSync, readFileSync } from "fs";
-import { join } from "path";
+import { resolve } from "path";
 import { orderFile, traitsDirectory } from "@config/api";
 import { SelectedTraits } from "@config/types";
 import { toHtml } from "hast-util-to-html";
@@ -14,14 +14,18 @@ const getValidTraits = (query: {
   Object.entries(query).reduce(
     (acc: SelectedTraits, [trait, variant]: [string, typeof query[string]]) => {
       // Check if the trait exists. Otherwise, omit
-      const traitDirectory = join(traitsDirectory, trait);
+      const traitDirectory = resolve(traitsDirectory, trait);
       if (!existsSync(traitDirectory)) return acc;
 
       // If variant is array, omit
       if (Array.isArray(variant)) return acc;
 
       // Check if variant exist, otherwise, omit.
-      const variantDirectory = join(traitsDirectory, trait, appendSvg(variant));
+      const variantDirectory = resolve(
+        traitsDirectory,
+        trait,
+        appendSvg(variant)
+      );
       if (!existsSync(variantDirectory)) return acc;
 
       acc[trait] = variant;
@@ -40,7 +44,7 @@ const getCompletedTraits = (validTraits: SelectedTraits) => {
   traitsNames.forEach((trait) => {
     if (!completedTraits[trait])
       completedTraits[trait] = removeSvg(
-        readSvgs(join(traitsDirectory, trait))[0]
+        readSvgs(resolve(traitsDirectory, trait))[0]
       );
   });
 
@@ -50,8 +54,8 @@ const getCompletedTraits = (validTraits: SelectedTraits) => {
 const getSVGElements = (completedTraits: SelectedTraits): ElementContent[] =>
   Object.entries(completedTraits)
     .sort(([traitA], [traitB]) => {
-      const pathA = join(traitsDirectory, traitA, orderFile);
-      const pathB = join(traitsDirectory, traitB, orderFile);
+      const pathA = resolve(traitsDirectory, traitA, orderFile);
+      const pathB = resolve(traitsDirectory, traitB, orderFile);
 
       const orderA = existsSync(pathA) ? Number(readFileSync(pathA) ?? 0) : 0;
       const orderB = existsSync(pathB) ? Number(readFileSync(pathB) ?? 0) : 0;
@@ -60,7 +64,7 @@ const getSVGElements = (completedTraits: SelectedTraits): ElementContent[] =>
     })
     .map(([trait, variant]) => {
       const file = readFileSync(
-        join(traitsDirectory, trait, appendSvg(variant))
+        resolve(traitsDirectory, trait, appendSvg(variant))
       );
 
       // This is horrible I know
