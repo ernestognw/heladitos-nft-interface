@@ -33,10 +33,14 @@ const config: Config = {
       "bg-strawberry-500 hover:bg-strawberry-600 focus:bg-strawberry-600 active:bg-strawberry-700",
     "orange-red":
       "bg-orange-red-500 hover:bg-orange-red-600 focus:bg-orange-red-600 active:bg-orange-red-700",
+    orange:
+      "bg-orange-500 hover:bg-orange-600 focus:bg-orange-600 active:bg-orange-700",
     mango:
       "bg-mango-500 hover:bg-mango-600 focus:bg-mango-600 active:bg-mango-700",
     "sky-blue":
       "bg-sky-blue-500 hover:bg-sky-blue-600 focus:bg-sky-blue-600 active:bg-sky-blue-700",
+    "tw-blue":
+      "bg-tw-blue-500 hover:bg-tw-blue-600 focus:bg-tw-blue-600 active:bg-tw-blue-700",
     blueberry:
       "bg-blueberry-500 hover:bg-blueberry-600 focus:bg-blueberry-600 active:bg-blueberry-700",
     white: "bg-gray-100 hover:bg-gray-200 focus:bg-gray-200 active:bg-gray-300",

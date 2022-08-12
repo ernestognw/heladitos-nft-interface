@@ -25,39 +25,42 @@ const Selector: FC<Props> = ({
   if (!active) return <></>;
 
   return (
-    <div className="absolute right-0 left-0 bottom-0 bg-white h-[320px] rounded-t-[50px] p-6">
-      <div className="flex gap-3">
-        <div className="rounded-full flex-1 bg-gray-200 flex gap-2">
-          {Object.keys(traits).map((trait) => (
-            <TraitTab
-              onClick={setSelectedTrait}
-              enabled={trait === selectedTrait}
-              key={trait}
-              trait={trait}
+    <>
+      <div className="inset-0 fixed cursor-pointer" onClick={close} />
+      <div className="fixed right-0 left-0 bottom-0 bg-white h-[320px] rounded-t-[50px] p-6">
+        <div className="flex gap-3">
+          <div className="rounded-full flex-1 bg-gray-200 flex gap-2 w-full overflow-x-scroll">
+            {Object.keys(traits).map((trait) => (
+              <TraitTab
+                onClick={setSelectedTrait}
+                enabled={trait === selectedTrait}
+                key={trait}
+                trait={trait}
+              />
+            ))}
+          </div>
+          <Button onClick={close} color="orange-red" size="sm">
+            X
+          </Button>
+        </div>
+        <div className="flex gap-2 overflow-scroll mt-6">
+          {traits[selectedTrait].map((variant) => (
+            <Variant
+              onClick={(variant: string) =>
+                setSelectedTraits((prev: SelectedTraits) => ({
+                  ...prev,
+                  [selectedTrait]: variant,
+                }))
+              }
+              selected={variant === selectedTraits[selectedTrait]}
+              key={variant}
+              variant={variant}
+              trait={selectedTrait}
             />
           ))}
         </div>
-        <Button onClick={close} color="orange-red" size="sm">
-          X
-        </Button>
       </div>
-      <div className="flex gap-2 overflow-scroll mt-6">
-        {traits[selectedTrait].map((variant) => (
-          <Variant
-            onClick={(variant: string) =>
-              setSelectedTraits((prev: SelectedTraits) => ({
-                ...prev,
-                [selectedTrait]: variant,
-              }))
-            }
-            selected={variant === selectedTraits[selectedTrait]}
-            key={variant}
-            variant={variant}
-            trait={selectedTrait}
-          />
-        ))}
-      </div>
-    </div>
+    </>
   );
 };
 

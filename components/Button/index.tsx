@@ -1,13 +1,12 @@
-import { FC, forwardRef, ReactNode } from "react";
+import { FC, forwardRef, ReactNode, ButtonHTMLAttributes } from "react";
 import type { Color, Size } from "@config/types";
 import { config } from "./utils";
 
-interface Props {
+export interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
   children: ReactNode;
   color: Color;
   size?: Size;
   className?: string;
-  [key: string]: any;
 }
 
 const Button: FC<Props> = forwardRef<HTMLButtonElement, Props>(

@@ -13,9 +13,14 @@ interface Props {
 const Index: NextPage<Props> = ({ traits }) => {
   const [isSelectorActive, toggleSelector] = useState(false);
   useEffect(() => {
-    const backgroundColor = "bg-gray-500";
+    const backgroundColor = "bg-gray-400";
+    const lgBackgroundColor = "lg:bg-tw-blue-500";
     document.body.classList.add(backgroundColor);
-    return () => document.body.classList.remove(backgroundColor);
+    document.body.classList.add(lgBackgroundColor);
+    return () => {
+      document.body.classList.remove(backgroundColor);
+      document.body.classList.remove(lgBackgroundColor);
+    };
   });
 
   const [selectedTraits, setSelectedTraits] = useState<SelectedTraits>(
@@ -28,20 +33,28 @@ const Index: NextPage<Props> = ({ traits }) => {
   return (
     <>
       <Navbar />
-      <div className="mt--16 pt-16 px-4 sm:px-6 lg:px-8 flex flex-col items-center">
-        <div className="flex max-w-5xl w-full py-6 bg-blueberry-500 border-black border-8 border-t-0 px-4 sm:px-6 lg:px-8 justify-center">
-          <div>
-            <div className="py-2 px-4 w-full bg-mango-500 shadow-[10px_10px_0px_0px]">
-              <h2 className="text-3xl font-bold">Your heladito</h2>
-            </div>
-            <Preview
-              openSelector={() => toggleSelector(true)}
-              traits={traits}
-              setSelectedTraits={setSelectedTraits}
-              selectedTraits={selectedTraits}
-            />
-          </div>
+      <div className="hidden lg:block lg:pt-16">
+        <div className="p-5 flex items-center justify-center text-center w-100 border-black border-4 bg-blueberry-500 border-l-0 border-r-0">
+          <h2
+            className="text-3xl font-bold text-white"
+            style={{
+              textShadow:
+                "3px 0 #000, -3px 0 #000, 0 3px #000, 0 -3px #000, 3px 3px #000, -3px -3px #000, 3px -3px #000, -3px 3px #000",
+            }}
+          >
+            Heladitos machine ®
+          </h2>
         </div>
+      </div>
+      <div className="pt-16 lg:pt-0 flex justify-center">
+        <div className="hidden lg:block bg-[url('/create/tubes.svg')] flex-1 bg-no-repeat bg-left" />
+        <Preview
+          openSelector={() => toggleSelector(true)}
+          traits={traits}
+          setSelectedTraits={setSelectedTraits}
+          selectedTraits={selectedTraits}
+        />
+        <div className="hidden lg:block bg-[url('/create/controls.svg')] flex-1 bg-no-repeat bg-center" />
       </div>
       <Selector
         active={isSelectorActive}

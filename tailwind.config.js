@@ -1,3 +1,4 @@
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const { lighten, darken } = require("polished");
 
 const colors = {
@@ -6,9 +7,11 @@ const colors = {
   grape: "#9F50FF",
   strawberry: "#FF7DEA",
   "orange-red": "#F86848",
+  "orange": "#FF8C00",
   mango: "#FFC700",
   "sky-blue": "#88C9F9",
-  blueberry: "#4B70C5"
+  "tw-blue": "#4E9AE9",
+  blueberry: "#4B70C5",
 };
 
 module.exports = {

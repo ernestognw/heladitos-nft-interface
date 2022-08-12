@@ -5,8 +5,10 @@ export const colors = [
   "purple",
   "strawberry",
   "orange-red",
+  "orange",
   "mango",
   "sky-blue",
+  "tw-blue",
   "blueberry",
   "white",
 ] as const;

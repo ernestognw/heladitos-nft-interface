@@ -1,7 +1,7 @@
 import { DetailedHTMLProps, FC, HTMLAttributes } from "react";
-import Button from "@components/Button";
+import Button, { Props as ButtonProps } from "@components/Button";
 
-interface Props {
+interface Props extends Partial<ButtonProps> {
   account?: {
     address: string;
     balanceDecimals?: number;
@@ -28,7 +28,6 @@ interface Props {
   accountModalOpen: boolean;
   chainModalOpen: boolean;
   connectModalOpen: boolean;
-  [key: string]: any;
 }
 
 const hiddenProps: DetailedHTMLProps<
@@ -50,18 +49,19 @@ const Inner: FC<Props> = ({
   openAccountModal,
   openChainModal,
   openConnectModal,
+  ...rest
 }) => {
   let content;
 
   if (!mounted || !account || !chain) {
     content = (
-      <Button onClick={openConnectModal} color="mint" size="sm">
+      <Button onClick={openConnectModal} color="mint" size="sm" {...rest}>
         Connect wallet
       </Button>
     );
   } else if (chain.unsupported) {
     content = (
-      <Button onClick={openChainModal} color="mango" size="sm">
+      <Button onClick={openChainModal} color="mango" size="sm" {...rest}>
         Wrong network
       </Button>
     );
@@ -72,6 +72,7 @@ const Inner: FC<Props> = ({
         color="mint"
         size="sm"
         className="flex"
+        {...rest}
       >
         {account.displayBalance ?? ""}
         {` ${account.displayName}`}

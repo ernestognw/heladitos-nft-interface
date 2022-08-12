@@ -1,12 +1,12 @@
 import Image from "next/image";
 import { FC } from "react";
 
-type Props = {
+interface Props {
   src: string;
   alt: string;
   title: string;
   subtitle: string;
-};
+}
 
 const Step: FC<Props> = ({ src, alt, title, subtitle }) => {
   return (

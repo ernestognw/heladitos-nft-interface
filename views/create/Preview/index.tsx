@@ -1,8 +1,9 @@
-/* eslint-disable @next/next/no-img-element */
 import { Dispatch, FC, SetStateAction, useEffect, useState } from "react";
-import Button from "@components/Button";
 import { SelectedTraits, Traits } from "@config/types";
 import { endpoints } from "@config/routes";
+import Display from "./Display";
+import MachineWrapper from "./MachineWrapper";
+import Controls from "./Controls";
 
 interface Props {
   traits: Traits;
@@ -40,22 +41,20 @@ const Preview: FC<Props> = ({
   };
 
   return (
-    <div className="mt-4">
-      <div className="w-full bg-white shadow-[10px_10px_0px_0px]">
-        <img src={imageUrl} alt="Your Heladito" className="max-h-[500px]" />
+    <>
+      <MachineWrapper
+        controls={
+          <Controls randomize={randomize} openSelector={openSelector} />
+        }
+        className="hidden lg:block mt-[-4px]"
+      >
+        <Display imageUrl={imageUrl} />
+      </MachineWrapper>
+      <div className="lg:hidden mt-16">
+        <Display className="lg:hidden" imageUrl={imageUrl} />
+        <Controls randomize={randomize} openSelector={openSelector} />
       </div>
-      <div className="flex justify-between mt-6 gap-4">
-        <Button onClick={openSelector} color="orange-red" className="flex-1">
-          Customize
-        </Button>
-        <Button onClick={randomize} color="strawberry" className="flex-1">
-          Random
-        </Button>
-      </div>
-      <Button size="xl" color="mint" className="w-full mt-4">
-        Continue
-      </Button>
-    </div>
+    </>
   );
 };
 

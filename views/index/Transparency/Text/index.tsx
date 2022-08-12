@@ -1,9 +1,8 @@
-import { FC } from "react";
+import { FC, HTMLAttributes } from "react";
 import Button from "@components/Button";
 
-interface Props {
+interface Props extends HTMLAttributes<HTMLDivElement> {
   className?: string;
-  [key: string]: any;
 }
 
 const Text: FC<Props> = ({ className, ...props }: Props) => {

@@ -1,11 +1,11 @@
 import Image from "next/image";
 import { FC } from "react";
 
-type Props = {
+interface Props {
   src: string;
   alt: string;
   title: string;
-};
+}
 
 const Trait: FC<Props> = ({ src, alt, title }) => {
   return (
