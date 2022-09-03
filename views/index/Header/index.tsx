@@ -39,7 +39,7 @@ const Header: FC = () => {
           A collection of 10,000 political ice-creams customized by the people
           and minted on the Ethereum Blockchain with the ERC-721 Standard.
         </p>
-        <Link href={routes.create} passHref>
+        <Link href={routes.create()} passHref>
           <Button size="xl" className="mt-10 z-10" color="strawberry">
             Create now
           </Button>

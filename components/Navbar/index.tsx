@@ -70,7 +70,7 @@ const Navbar: FC = () => {
           </div>
           <div className="flex gap-3">
             <ConnectButton />
-            <Link href={routes.create} passHref>
+            <Link href={routes.create()} passHref>
               <Button size="sm" color="strawberry">
                 Create
               </Button>
