@@ -10,7 +10,7 @@ const TraitRow: FC<Props> = ({ trait, value }) => {
   const traitName = trait.replace(/-/g, " ");
   const valueName = value.replace(/-/g, " ");
   return (
-    <div className="flex justify-between my-10">
+    <div className="flex justify-between my-6">
       <p className="capitalize">{traitName}</p>
       <p className="capitalize font-bold">{valueName}</p>
     </div>

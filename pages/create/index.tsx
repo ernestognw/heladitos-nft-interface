@@ -40,7 +40,10 @@ const Index: NextPage<Props> = ({ traits }) => {
     <>
       <Navbar />
       {confirm ? (
-        <Confirm selectedTraits={selectedTraits} />
+        <Confirm
+          selectedTraits={selectedTraits}
+          onGoBack={() => setConfirm(false)}
+        />
       ) : (
         <>
           <div className="hidden lg:block lg:pt-16">
