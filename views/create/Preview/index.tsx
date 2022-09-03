@@ -1,7 +1,6 @@
-import { Dispatch, FC, SetStateAction, useEffect, useState } from "react";
+import { Dispatch, FC, SetStateAction } from "react";
 import { SelectedTraits, Traits } from "@config/types";
-import { endpoints } from "@config/routes";
-import Display from "./Display";
+import Display from "@views/create/components/Display";
 import MachineWrapper from "./MachineWrapper";
 import Controls from "./Controls";
 
@@ -10,6 +9,7 @@ interface Props {
   selectedTraits: SelectedTraits;
   setSelectedTraits: Dispatch<SetStateAction<SelectedTraits>>;
   openSelector: <T>() => T | void;
+  openConfirm: <T>() => T | void;
 }
 
 const Preview: FC<Props> = ({
@@ -17,17 +17,8 @@ const Preview: FC<Props> = ({
   selectedTraits,
   setSelectedTraits,
   openSelector,
+  openConfirm,
 }) => {
-  const [imageUrl, setImageUrl] = useState(endpoints.render);
-
-  useEffect(() => {
-    const searchParams = new URLSearchParams();
-    Object.entries(selectedTraits).forEach(([trait, variant]) =>
-      searchParams.append(trait, variant)
-    );
-    setImageUrl(`${endpoints.render}?${searchParams.toString()}`);
-  }, [selectedTraits]);
-
   const randomize = () => {
     const selectedTraits = Object.entries(traits).reduce(
       (acc: SelectedTraits, [trait, variants]) => {
@@ -44,15 +35,23 @@ const Preview: FC<Props> = ({
     <>
       <MachineWrapper
         controls={
-          <Controls randomize={randomize} openSelector={openSelector} />
+          <Controls
+            openConfirm={openConfirm}
+            randomize={randomize}
+            openSelector={openSelector}
+          />
         }
         className="hidden lg:block mt-[-4px]"
       >
-        <Display imageUrl={imageUrl} />
+        <Display selectedTraits={selectedTraits} />
       </MachineWrapper>
       <div className="lg:hidden mt-16">
-        <Display className="lg:hidden" imageUrl={imageUrl} />
-        <Controls randomize={randomize} openSelector={openSelector} />
+        <Display className="lg:hidden" selectedTraits={selectedTraits} />
+        <Controls
+          openConfirm={openConfirm}
+          randomize={randomize}
+          openSelector={openSelector}
+        />
       </div>
     </>
   );

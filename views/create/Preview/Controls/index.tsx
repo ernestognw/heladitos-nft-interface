@@ -4,9 +4,10 @@ import { FC } from "react";
 interface Props {
   openSelector: <T>() => T | void;
   randomize: <T>() => T | void;
+  openConfirm: <T>() => T | void;
 }
 
-const Controls: FC<Props> = ({ openSelector, randomize }) => {
+const Controls: FC<Props> = ({ openSelector, randomize, openConfirm }) => {
   return (
     <>
       <div className="flex justify-between mt-6 gap-4">
@@ -17,7 +18,7 @@ const Controls: FC<Props> = ({ openSelector, randomize }) => {
           Random
         </Button>
       </div>
-      <Button size="xl" color="mint" className="w-full mt-4">
+      <Button onClick={openConfirm} size="xl" color="mint" className="w-full mt-4">
         Continue
       </Button>
     </>

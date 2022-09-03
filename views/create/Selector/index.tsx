@@ -20,7 +20,7 @@ const Selector: FC<Props> = ({
   setSelectedTraits,
 }) => {
   const traitNames = useMemo(() => Object.keys(traits), [traits]);
-  const [selectedTrait, setSelectedTrait] = useState(traitNames[0]);
+  const [selectedTraitName, setSelectedTraitName] = useState(traitNames[0]);
 
   if (!active) return <></>;
 
@@ -32,8 +32,8 @@ const Selector: FC<Props> = ({
           <div className="rounded-full flex-1 bg-gray-200 flex gap-2 w-full overflow-x-scroll">
             {Object.keys(traits).map((trait) => (
               <TraitTab
-                onClick={setSelectedTrait}
-                enabled={trait === selectedTrait}
+                onClick={setSelectedTraitName}
+                enabled={trait === selectedTraitName}
                 key={trait}
                 trait={trait}
               />
@@ -44,18 +44,18 @@ const Selector: FC<Props> = ({
           </Button>
         </div>
         <div className="flex gap-2 overflow-scroll mt-6">
-          {traits[selectedTrait].map((variant) => (
+          {traits[selectedTraitName].map((variant) => (
             <Variant
               onClick={(variant: string) =>
                 setSelectedTraits((prev: SelectedTraits) => ({
                   ...prev,
-                  [selectedTrait]: variant,
+                  [selectedTraitName]: variant,
                 }))
               }
-              selected={variant === selectedTraits[selectedTrait]}
+              selected={variant === selectedTraits[selectedTraitName]}
               key={variant}
               variant={variant}
-              trait={selectedTrait}
+              trait={selectedTraitName}
             />
           ))}
         </div>
