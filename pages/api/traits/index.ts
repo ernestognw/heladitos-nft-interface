@@ -2,7 +2,7 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import { resolve } from "path";
 import { traitsDirectory } from "@config/api";
 import { Traits } from "@config/types";
-import { readSvgs, removeSvg } from "@config/api/utils";
+import { notAllowedMethod, readSvgs, removeSvg } from "@config/api/utils";
 
 export const getTraits = (): Traits => {
   const traitsNames = readSvgs(traitsDirectory);
@@ -17,7 +17,15 @@ export const getTraits = (): Traits => {
   return traits;
 };
 
-const handler = (_: NextApiRequest, res: NextApiResponse<Traits>) =>
-  res.status(200).json(getTraits());
+const handler = (req: NextApiRequest, res: NextApiResponse<Traits>) => {
+  const { method } = req;
+
+  switch (method) {
+    case "GET":
+      return res.status(200).json(getTraits());
+    default:
+      return notAllowedMethod(req, res, ["GET"]);
+  }
+};
 
 export default handler;

@@ -12,6 +12,7 @@ const routes = {
 const endpoints = {
   render: "/api/render",
   traits: "/api/traits",
+  pin: "/api/pin",
 };
 
 export { routes, endpoints };

@@ -6,9 +6,14 @@ import { SelectedTraits } from "@config/types";
 import { toHtml } from "hast-util-to-html";
 import { ElementNode, parse } from "svg-parser";
 import { Root, ElementContent } from "hast";
-import { appendSvg, readSvgs, removeSvg } from "@config/api/utils";
+import {
+  appendSvg,
+  notAllowedMethod,
+  readSvgs,
+  removeSvg,
+} from "@config/api/utils";
 
-const getValidTraits = (query: {
+export const getValidTraits = (query: {
   [key: string]: string | string[];
 }): SelectedTraits =>
   Object.entries(query).reduce(
@@ -35,7 +40,7 @@ const getValidTraits = (query: {
     {}
   );
 
-const getCompletedTraits = (validTraits: SelectedTraits) => {
+export const getCompletedTraits = (validTraits: SelectedTraits) => {
   const completedTraits = {
     ...validTraits,
   };
@@ -94,17 +99,31 @@ const getMergedSVG = (svgElements: ElementContent[]): string => {
   return toHtml(hastNode);
 };
 
-const handler = (req: NextApiRequest, res: NextApiResponse<string>) => {
-  const { query } = req;
-
+export const getSvgFromQuery = (query: NextApiRequest["query"]) => {
   const validTraits = getValidTraits(query);
   const completedTraits = getCompletedTraits(validTraits);
   const svgElements = getSVGElements(completedTraits);
-  const mergedSvg = getMergedSVG(svgElements);
+  return getMergedSVG(svgElements);
+};
+
+const handleGet = (req: NextApiRequest, res: NextApiResponse<string>) => {
+  const { query } = req;
+  const mergedSvg = getSvgFromQuery(query);
 
   res.setHeader("Content-Type", "image/svg+xml");
   res.status(200).write(mergedSvg);
-  res.end();
+  return res.end();
+};
+
+const handler = (req: NextApiRequest, res: NextApiResponse<string>) => {
+  const { method } = req;
+
+  switch (method) {
+    case "GET":
+      return handleGet(req, res);
+    default:
+      return notAllowedMethod(req, res, ["GET"]);
+  }
 };
 
 export default handler;

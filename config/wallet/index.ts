@@ -1,3 +1,4 @@
+import { infura } from "@config/environment";
 import {
   apiProvider,
   configureChains,
@@ -7,7 +8,7 @@ import { chain, createClient } from "wagmi";
 
 const { chains, provider } = configureChains(
   [chain.mainnet],
-  [apiProvider.alchemy(process.env.ALCHEMY_ID), apiProvider.fallback()]
+  [apiProvider.infura(infura.apiKey), apiProvider.fallback()]
 );
 
 const { connectors } = getDefaultWallets({

@@ -1,8 +1,10 @@
-import { FC } from "react";
+import { FC, useState } from "react";
 import Display from "@views/create/components/Display";
 import { SelectedTraits } from "@config/types";
 import TraitRow from "./TraitRow";
+import axios from "axios";
 import Button from "@components/Button";
+import { endpoints } from "@config/routes";
 
 interface Props {
   selectedTraits: SelectedTraits;
@@ -11,6 +13,14 @@ interface Props {
 }
 
 const Confirm: FC<Props> = ({ selectedTraits, onGoBack }) => {
+  const [uploading, setUploading] = useState(false);
+
+  const uploadToIpfs = async () => {
+    setUploading(true);
+    await axios.post(endpoints.pin, { ...selectedTraits });
+    setUploading(false);
+  };
+
   return (
     <>
       <div className="fixed inset-0 bg-gray-400 cursor-pointer" />
@@ -30,8 +40,13 @@ const Confirm: FC<Props> = ({ selectedTraits, onGoBack }) => {
               <TraitRow key={`${trait}-${value}`} trait={trait} value={value} />
             ))}
             <hr />
-            <Button color="mint" className="w-full mt-4">
-              Mint now
+            <Button
+              disabled={uploading}
+              color="mint"
+              className="w-full mt-4"
+              onClick={uploadToIpfs}
+            >
+              {uploading ? "Uploading metadata..." : "Mint now"}
             </Button>
           </div>
         </div>

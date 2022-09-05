@@ -1,5 +1,10 @@
-const alchemy = {
-  apiKey: process.env.NEXT_PUBLIC_ALCHEMY_API_KEY,
+const infura = {
+  apiKey: process.env.NEXT_PUBLIC_INFURA_API_KEY,
 };
 
-export { alchemy };
+const pinata = {
+  apiKey: process.env.PINATA_API_KEY as string,
+  apiSecret: process.env.PINATA_API_SECRET as string,
+};
+
+export { infura, pinata };

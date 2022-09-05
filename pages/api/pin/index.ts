@@ -1,0 +1,93 @@
+import pinata from "@config/api/clients/ipfs";
+import { notAllowedMethod } from "@config/api/utils";
+import { PinataMetadata } from "@pinata/sdk";
+import type { NextApiRequest, NextApiResponse } from "next";
+import { Readable } from "stream";
+import IPFSHash from "ipfs-only-hash";
+import capitalize from "capitalize";
+import { CID } from "multiformats";
+import { getCompletedTraits, getSvgFromQuery, getValidTraits } from "../render";
+
+interface ReadableWithIPFSPath extends Readable {
+  /**
+   * IPFS uploads need path in order to locate file.
+   * If not set, it'll throw an invalid request error
+   */
+  path: string;
+}
+
+const toHexDigest = (source: string) =>
+  Buffer.from(CID.parse(source).multihash.digest).toString("hex");
+
+const handlePost = async (
+  req: NextApiRequest,
+  res: NextApiResponse<object>
+) => {
+  const { body } = req;
+
+  const mergedSvg = getSvgFromQuery(body);
+  const imageStream = Readable.from(
+    Buffer.from(mergedSvg)
+  ) as ReadableWithIPFSPath;
+  const imageHash = await IPFSHash.of(Buffer.from(mergedSvg));
+  imageStream.path = imageHash;
+  const traits = getCompletedTraits(getValidTraits(body));
+
+  const pinataMetadata = {
+    name: imageHash,
+    keyvalues: traits,
+  };
+
+  const { IpfsHash: imageIpfsHash } = await pinata.pinFileToIPFS(imageStream, {
+    /**
+     * Explicit conversion to metadata is needed since there's no match between
+     * the Pinata SDK types and the actual needed values
+     * Remove when https://github.com/PinataCloud/Pinata-SDK/pull/116 is merged
+     */
+    pinataMetadata: pinataMetadata as unknown as PinataMetadata,
+  });
+
+  const metadata = {
+    title: "Heladito",
+    description: "An Heladito NFT",
+    image: `ipfs://${imageIpfsHash}`,
+    attributes: Object.entries(traits).map(([traitType, value]) => ({
+      trait_type: capitalize.words(traitType.replace(/-/g, " ")),
+      value: value,
+    })),
+  };
+
+  const { IpfsHash: metadataIpfsHash } = await pinata.pinJSONToIPFS(metadata, {
+    pinataMetadata: {
+      name: `${imageHash} Metadata`,
+    },
+  });
+
+  // Defensive assertion to check everything is correct with the hash calculation
+  if (imageIpfsHash !== imageHash)
+    throw new Error(`Invalid IPFS hash generation`);
+
+  return res.status(200).json({
+    image: {
+      hash: imageIpfsHash,
+      hexDigest: toHexDigest(imageIpfsHash),
+    },
+    metadata: {
+      hash: metadataIpfsHash,
+      hexDigest: toHexDigest(metadataIpfsHash),
+    },
+  });
+};
+
+const handler = async (req: NextApiRequest, res: NextApiResponse<object>) => {
+  const { method } = req;
+
+  switch (method) {
+    case "POST":
+      return handlePost(req, res);
+    default:
+      return notAllowedMethod(req, res, ["GET"]);
+  }
+};
+
+export default handler;
