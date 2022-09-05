@@ -11,10 +11,10 @@
   "dependencies": {
     "@headlessui/react": "1.0.0",
     "@pinata/sdk": "^1.1.26",
-    "@rainbow-me/rainbowkit": "^0.1.1",
+    "@rainbow-me/rainbowkit": "^0.5.1",
     "axios": "^0.27.2",
     "capitalize": "^2.0.4",
-    "ethers": "^5.6.6",
+    "ethers": "^5.7.0",
     "hast-util-to-html": "^8.0.3",
     "ipfs-only-hash": "^4.0.0",
     "multiformats": "^9.7.1",
@@ -23,7 +23,7 @@
     "react": "18.0.0",
     "react-dom": "18.0.0",
     "svg-parser": "^2.0.4",
-    "wagmi": "^0.4.0"
+    "wagmi": "^0.6.4"
   },
   "devDependencies": {
     "@types/capitalize": "^2.0.0",

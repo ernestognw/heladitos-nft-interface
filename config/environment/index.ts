@@ -7,4 +7,14 @@ const pinata = {
   apiSecret: process.env.PINATA_API_SECRET as string,
 };
 
-export { infura, pinata };
+const env = {
+  production: process.env.NODE_ENV === "production",
+  development: process.env.NODE_ENV === "development",
+  test: process.env.NODE_ENV === "test",
+};
+
+const heladitos = {
+  contract: process.env.NEXT_PUBLIC_HELADITOS_CONTRACT,
+};
+
+export { infura, pinata, env, heladitos };

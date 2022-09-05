@@ -1,14 +1,12 @@
-import { infura } from "@config/environment";
-import {
-  apiProvider,
-  configureChains,
-  getDefaultWallets,
-} from "@rainbow-me/rainbowkit";
-import { chain, createClient } from "wagmi";
+import { env, infura } from "@config/environment";
+import { getDefaultWallets } from "@rainbow-me/rainbowkit";
+import { chain, createClient, configureChains } from "wagmi";
+import { infuraProvider } from "wagmi/providers/infura";
+import { publicProvider } from "wagmi/providers/public";
 
 const { chains, provider } = configureChains(
-  [chain.mainnet],
-  [apiProvider.infura(infura.apiKey), apiProvider.fallback()]
+  [env.production ? chain.goerli : chain.goerli],
+  [infuraProvider({ apiKey: infura.apiKey }), publicProvider()]
 );
 
 const { connectors } = getDefaultWallets({

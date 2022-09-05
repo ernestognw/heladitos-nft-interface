@@ -5,6 +5,12 @@ import TraitRow from "./TraitRow";
 import axios from "axios";
 import Button from "@components/Button";
 import { endpoints } from "@config/routes";
+import ConnectButton from "@components/ConnectButton";
+import { PinResponse } from "@pages/api/pin";
+import { useContractWrite, usePrepareContractWrite, useAccount } from "wagmi";
+import HeladitosABI from "@config/abis/Heladitos.json";
+import { heladitos } from "@config/environment";
+import { BigNumber } from "ethers";
 
 interface Props {
   selectedTraits: SelectedTraits;
@@ -13,12 +19,35 @@ interface Props {
 }
 
 const Confirm: FC<Props> = ({ selectedTraits, onGoBack }) => {
+  const { address } = useAccount();
+
+  const { config } = usePrepareContractWrite({
+    addressOrName: heladitos.contract ?? "",
+    contractInterface: HeladitosABI,
+    functionName: "mint",
+    args: [address, 0], // Token id should be overrode on the write() function. But is needed here :/
+  });
+  const { isLoading, write } = useContractWrite(config);
   const [uploading, setUploading] = useState(false);
 
   const uploadToIpfs = async () => {
     setUploading(true);
-    await axios.post(endpoints.pin, { ...selectedTraits });
+    const { data } = await axios.post<PinResponse>(endpoints.pin, {
+      ...selectedTraits,
+    });
     setUploading(false);
+    await write?.({
+      recklesslySetUnpreparedArgs: [
+        address,
+        BigNumber.from(`0x${data.metadata.hexDigest}`),
+      ],
+    });
+  };
+
+  const buttonMessage = () => {
+    if (uploading) return "Uploading metadata...";
+    if (isLoading) return "Waiting to sign transaction...";
+    return "Mint now";
   };
 
   return (
@@ -40,14 +69,24 @@ const Confirm: FC<Props> = ({ selectedTraits, onGoBack }) => {
               <TraitRow key={`${trait}-${value}`} trait={trait} value={value} />
             ))}
             <hr />
-            <Button
-              disabled={uploading}
-              color="mint"
+            <ConnectButton
+              states={{
+                connected: {
+                  onClick: uploadToIpfs,
+                  children: buttonMessage(),
+                },
+                connect: {
+                  children: "Connect wallet to mint",
+                },
+                wrongNetwork: {
+                  children: "Change to correct network",
+                },
+              }}
               className="w-full mt-4"
-              onClick={uploadToIpfs}
-            >
-              {uploading ? "Uploading metadata..." : "Mint now"}
-            </Button>
+              color="mint"
+              size="lg"
+              disabled={uploading || isLoading}
+            />
           </div>
         </div>
       </div>

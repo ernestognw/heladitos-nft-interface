@@ -8,6 +8,15 @@ import capitalize from "capitalize";
 import { CID } from "multiformats";
 import { getCompletedTraits, getSvgFromQuery, getValidTraits } from "../render";
 
+interface IPFSFileResponse {
+  hash: string;
+  hexDigest: string;
+}
+export interface PinResponse {
+  image: IPFSFileResponse;
+  metadata: IPFSFileResponse;
+}
+
 interface ReadableWithIPFSPath extends Readable {
   /**
    * IPFS uploads need path in order to locate file.
@@ -21,7 +30,7 @@ const toHexDigest = (source: string) =>
 
 const handlePost = async (
   req: NextApiRequest,
-  res: NextApiResponse<object>
+  res: NextApiResponse<PinResponse>
 ) => {
   const { body } = req;
 
@@ -48,8 +57,9 @@ const handlePost = async (
   });
 
   const metadata = {
-    title: "Heladito",
-    description: "An Heladito NFT",
+    name: "Heladito",
+    description:
+      "A self-customized political ice cream accidentally dipped into the J-Chemical: An element capable of waking up people's intersectional awareness.",
     image: `ipfs://${imageIpfsHash}`,
     attributes: Object.entries(traits).map(([traitType, value]) => ({
       trait_type: capitalize.words(traitType.replace(/-/g, " ")),

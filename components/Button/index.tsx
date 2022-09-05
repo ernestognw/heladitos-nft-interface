@@ -20,6 +20,7 @@ const Button: FC<Props> = forwardRef<HTMLButtonElement, Props>(
       className={`${config.base} ${config.colors[color]} ${
         config.sizes[size]
       } ${className} ${disabled ? "opacity-50" : ""}`}
+      disabled={disabled}
       {...props}
       ref={ref}
     >
