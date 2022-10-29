@@ -17,7 +17,7 @@ const navRoutes = [
   },
   {
     name: "FAQ & Dictionary",
-    href: "/#",
+    href: "/faq-and-dictionary",
   },
 ];
 

@@ -18,7 +18,7 @@ const Variant: FC<Props> = ({ selected, trait, variant, onClick }) => {
     >
       {variant !== "none" ? (
         <Image
-          src={`/traits/${trait}/${variant}.svg`}
+          src={`/traits/${trait}/${variant}/image.svg`}
           alt={`${trait}-${variant}`}
           width={200}
           height={200}
