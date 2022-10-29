@@ -1,7 +1,8 @@
 import { resolve } from "path";
 
-const traitsDirectory = resolve("./public", "traits");
+const TRAITS_DIRECTORY = resolve("./public", "traits");
 
-const orderFile = "order";
+const ORDER_FILE = "order";
+const IMAGE_FILE = "image.svg";
 
-export { traitsDirectory, orderFile };
+export { TRAITS_DIRECTORY, ORDER_FILE, IMAGE_FILE };

@@ -1,12 +1,12 @@
 import type { NextPage } from "next";
 import { SelectedTraits, Traits } from "@config/types";
-import { getTraits } from "@pages/api/traits";
 import Preview from "@views/create/Preview";
 import Navbar from "@components/Navbar";
 import Selector from "@views/create/Selector";
 import { useEffect, useState } from "react";
 import useQueryParam from "@hooks/use-query-param";
 import Confirm from "@views/create/Confirm";
+import { getTraits } from "@config/api/utils";
 
 interface Props {
   traits: Traits;

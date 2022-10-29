@@ -1,22 +1,11 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import { existsSync } from "fs";
-import { resolve } from "path";
-import { traitsDirectory } from "@config/api";
-import { Variant } from "@config/types";
-import { notAllowedMethod, readSvgs, removeSvg } from "@config/api/utils";
+import { Variants } from "@config/types";
+import { getVariants, notAllowedMethod } from "@config/api/utils";
 import { ApiError } from "@config/api/types";
-
-const getVariants = (trait: string) => {
-  const variantsDirectory = resolve(traitsDirectory, trait);
-
-  if (!existsSync(variantsDirectory)) throw new Error();
-
-  return readSvgs(variantsDirectory).map(removeSvg);
-};
 
 const handleGet = (
   req: NextApiRequest,
-  res: NextApiResponse<Variant | ApiError>
+  res: NextApiResponse<Variants | ApiError>
 ) => {
   const {
     query: { trait },
@@ -32,7 +21,7 @@ const handleGet = (
 
 const handler = (
   req: NextApiRequest,
-  res: NextApiResponse<Variant | ApiError>
+  res: NextApiResponse<Variants | ApiError>
 ) => {
   const { method } = req;
 

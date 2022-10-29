@@ -1,16 +1,16 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { existsSync, readFileSync } from "fs";
 import { resolve } from "path";
-import { orderFile, traitsDirectory } from "@config/api";
+import { ORDER_FILE, TRAITS_DIRECTORY } from "@config/api";
 import { SelectedTraits } from "@config/types";
 import { toHtml } from "hast-util-to-html";
 import { ElementNode, parse } from "svg-parser";
 import { Root, ElementContent } from "hast";
 import {
-  appendSvg,
   notAllowedMethod,
-  readSvgs,
-  removeSvg,
+  getVariantSVGPath,
+  getVariants,
+  getTraitNames,
 } from "@config/api/utils";
 
 export const getValidTraits = (query: {
@@ -19,19 +19,15 @@ export const getValidTraits = (query: {
   Object.entries(query).reduce(
     (acc: SelectedTraits, [trait, variant]: [string, typeof query[string]]) => {
       // Check if the trait exists. Otherwise, omit
-      const traitDirectory = resolve(traitsDirectory, trait);
+      const traitDirectory = resolve(TRAITS_DIRECTORY, trait);
       if (!existsSync(traitDirectory)) return acc;
 
       // If variant is array, omit
       if (Array.isArray(variant)) return acc;
 
-      // Check if variant exist, otherwise, omit.
-      const variantDirectory = resolve(
-        traitsDirectory,
-        trait,
-        appendSvg(variant)
-      );
-      if (!existsSync(variantDirectory)) return acc;
+      // Check if variant selected exist, otherwise, omit.
+      const variantSVGPAth = getVariantSVGPath(trait, variant);
+      if (!existsSync(variantSVGPAth)) return acc;
 
       acc[trait] = variant;
 
@@ -45,12 +41,9 @@ export const getCompletedTraits = (validTraits: SelectedTraits) => {
     ...validTraits,
   };
   // Complete every missing trait with a default
-  const traitsNames = readSvgs(traitsDirectory);
+  const traitsNames = getTraitNames();
   traitsNames.forEach((trait) => {
-    if (!completedTraits[trait])
-      completedTraits[trait] = removeSvg(
-        readSvgs(resolve(traitsDirectory, trait))[0]
-      );
+    if (!completedTraits[trait]) completedTraits[trait] = getVariants(trait)[0];
   });
 
   return completedTraits;
@@ -59,8 +52,8 @@ export const getCompletedTraits = (validTraits: SelectedTraits) => {
 const getSVGElements = (completedTraits: SelectedTraits): ElementContent[] =>
   Object.entries(completedTraits)
     .sort(([traitA], [traitB]) => {
-      const pathA = resolve(traitsDirectory, traitA, orderFile);
-      const pathB = resolve(traitsDirectory, traitB, orderFile);
+      const pathA = resolve(TRAITS_DIRECTORY, traitA, ORDER_FILE);
+      const pathB = resolve(TRAITS_DIRECTORY, traitB, ORDER_FILE);
 
       const orderA = existsSync(pathA) ? Number(readFileSync(pathA) ?? 0) : 0;
       const orderB = existsSync(pathB) ? Number(readFileSync(pathB) ?? 0) : 0;
@@ -68,9 +61,7 @@ const getSVGElements = (completedTraits: SelectedTraits): ElementContent[] =>
       return orderA - orderB;
     })
     .map(([trait, variant]) => {
-      const file = readFileSync(
-        resolve(traitsDirectory, trait, appendSvg(variant))
-      );
+      const file = readFileSync(getVariantSVGPath(trait, variant));
 
       // This is horrible I know
       return (parse(file.toString()).children[0] as ElementNode)

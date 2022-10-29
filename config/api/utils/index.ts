@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next";
-export * from "./svg";
+export * from "./traits";
 
 type HTTPMethod = "GET" | "POST";
 
