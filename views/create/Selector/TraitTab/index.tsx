@@ -17,7 +17,8 @@ const TraitTab: FC<Props> = ({ onClick, trait, enabled }) => {
       <Button
         size="xs"
         color="blueberry"
-        className={`${commonClasses} text-white`}
+        className={commonClasses}
+        style={{ color: "white" }}
       >
         {name}
       </Button>
