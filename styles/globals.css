@@ -72,3 +72,22 @@
   transform: rotate(180deg);
   bottom: calc(100% - 1px);
 }
+
+*::-webkit-scrollbar {
+  max-width: 5px;
+  max-height: 5px;
+  position: fixed;
+}
+
+*::-webkit-scrollbar-track {
+  background: #ecedef;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: #aaaeb3;
+  border-radius: 8px;
+}
+
+*::-webkit-scrollbar-button {
+  display: none;
+}

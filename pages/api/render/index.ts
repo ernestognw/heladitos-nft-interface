@@ -43,7 +43,6 @@ export const getCompletedTraits = (validTraits: SelectedTraits) => {
   // Complete every missing trait with a default
   const traitsNames = getTraitNames();
   traitsNames.forEach((trait) => {
-    console.log(getVariants(trait));
     if (!completedTraits[trait])
       completedTraits[trait] = Object.keys(getVariants(trait))[0];
   });

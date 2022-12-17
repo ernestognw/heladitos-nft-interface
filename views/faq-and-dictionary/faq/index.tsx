@@ -1,5 +1,5 @@
 import { FC } from "react";
-import Question from "./components/Question";
+import Question from "./Question";
 
 type Question = {
   question: string;

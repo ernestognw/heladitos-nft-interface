@@ -2,7 +2,7 @@ import { IMAGE_FILE, TRAITS_DIRECTORY } from "@config/api";
 import {
   TraitName,
   Traits,
-  Variant,
+  VariantName,
   VariantMetadata,
   Variants,
 } from "@config/types";
@@ -18,7 +18,7 @@ const getVariants = (trait: string): Variants => {
     statSync(resolve(traitDirectory, fileOrDirectory)).isDirectory()
   );
 
-  return variants.reduce((acc: Variants, variant: Variant) => {
+  return variants.reduce((acc: Variants, variant: VariantName) => {
     const metadataPath = resolve(traitDirectory, variant, "metadata.json");
     acc[variant] = null;
     if (existsSync(metadataPath))
@@ -45,7 +45,7 @@ const getTraits = (): Traits => {
   return traits;
 };
 
-const getVariantSVGPath = (traitName: TraitName, variant: Variant) =>
+const getVariantSVGPath = (traitName: TraitName, variant: VariantName) =>
   resolve(TRAITS_DIRECTORY, traitName, variant, IMAGE_FILE);
 
 export { getTraitNames, getVariants, getVariantSVGPath, getTraits };
