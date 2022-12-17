@@ -18,7 +18,13 @@ export const sizes = ["xs", "sm", "md", "lg", "xl"] as const;
 export type Size = typeof sizes[number];
 
 export type Variant = string;
-export type Variants = Variant[];
+export type VariantMetadata = {
+  name: string;
+  description: string;
+};
+export type Variants = {
+  [key: Variant]: VariantMetadata | null;
+};
 export type TraitName = string;
 export type Traits = {
   [key: TraitName]: Variants;

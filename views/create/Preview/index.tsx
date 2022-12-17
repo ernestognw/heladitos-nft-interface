@@ -22,7 +22,9 @@ const Preview: FC<Props> = ({
   const randomize = () => {
     const selectedTraits = Object.entries(traits).reduce(
       (acc: SelectedTraits, [trait, variants]) => {
-        acc[trait] = variants[Math.floor(Math.random() * variants.length)];
+        const variantNames = Object.keys(variants);
+        acc[trait] =
+          variantNames[Math.floor(Math.random() * variantNames.length)];
         return acc;
       },
       {}

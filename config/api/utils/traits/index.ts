@@ -1,6 +1,12 @@
 import { IMAGE_FILE, TRAITS_DIRECTORY } from "@config/api";
-import { TraitName, Traits, Variant, Variants } from "@config/types";
-import { existsSync, readdirSync, statSync } from "fs";
+import {
+  TraitName,
+  Traits,
+  Variant,
+  VariantMetadata,
+  Variants,
+} from "@config/types";
+import { existsSync, readdirSync, readFileSync, statSync } from "fs";
 import { resolve } from "path";
 
 const getVariants = (trait: string): Variants => {
@@ -8,9 +14,19 @@ const getVariants = (trait: string): Variants => {
 
   if (!existsSync(traitDirectory)) throw new Error(`Trait ${trait} not found`);
 
-  return readdirSync(traitDirectory).filter((fileOrDirectory) =>
+  const variants = readdirSync(traitDirectory).filter((fileOrDirectory) =>
     statSync(resolve(traitDirectory, fileOrDirectory)).isDirectory()
   );
+
+  return variants.reduce((acc: Variants, variant: Variant) => {
+    const metadataPath = resolve(traitDirectory, variant, "metadata.json");
+    acc[variant] = null;
+    if (existsSync(metadataPath))
+      acc[variant] = JSON.parse(
+        readFileSync(metadataPath, "utf8")
+      ) as VariantMetadata;
+    return acc;
+  }, {});
 };
 
 const getTraitNames = (): TraitName[] =>

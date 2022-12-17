@@ -22,6 +22,11 @@ const Selector: FC<Props> = ({
   const traitNames = useMemo(() => Object.keys(traits), [traits]);
   const [selectedTraitName, setSelectedTraitName] = useState(traitNames[0]);
 
+  const variantNames = useMemo(
+    () => Object.keys(traits[selectedTraitName]),
+    [traits, selectedTraitName]
+  );
+
   if (!active) return <></>;
 
   return (
@@ -44,7 +49,7 @@ const Selector: FC<Props> = ({
           </Button>
         </div>
         <div className="flex gap-2 overflow-scroll mt-6">
-          {traits[selectedTraitName].map((variant) => (
+          {variantNames.map((variant) => (
             <Variant
               onClick={(variant: string) =>
                 setSelectedTraits((prev: SelectedTraits) => ({

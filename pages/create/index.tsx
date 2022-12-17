@@ -29,7 +29,7 @@ const Index: NextPage<Props> = ({ traits }) => {
   const [selectedTraits, setSelectedTraits] = useQueryParam<SelectedTraits>(
     "selectedTraits",
     Object.entries(traits).reduce((acc: SelectedTraits, [trait, variants]) => {
-      acc[trait] = variants[0];
+      acc[trait] = Object.keys(variants)[0];
       return acc;
     }, {})
   );
