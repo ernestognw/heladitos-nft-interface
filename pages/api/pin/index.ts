@@ -1,5 +1,5 @@
 import pinata from "@config/api/clients/ipfs";
-import { notAllowedMethod } from "@config/api/utils";
+import { handleRequest, Methods } from "@config/api/utils";
 import { PinataMetadata } from "@pinata/sdk";
 import type { NextApiRequest, NextApiResponse } from "next";
 import { Readable } from "stream";
@@ -7,6 +7,7 @@ import IPFSHash from "ipfs-only-hash";
 import capitalize from "capitalize";
 import { CID } from "multiformats";
 import { getCompletedTraits, getSvgFromQuery, getValidTraits } from "../render";
+import { ApiError } from "@config/api/types";
 
 interface IPFSFileResponse {
   hash: string;
@@ -28,9 +29,11 @@ interface ReadableWithIPFSPath extends Readable {
 const toHexDigest = (source: string) =>
   Buffer.from(CID.parse(source).multihash.digest).toString("hex");
 
+type Response = PinResponse | ApiError;
+
 const handlePost = async (
   req: NextApiRequest,
-  res: NextApiResponse<PinResponse>
+  res: NextApiResponse<Response>
 ) => {
   const { body } = req;
 
@@ -89,15 +92,11 @@ const handlePost = async (
   });
 };
 
-const handler = async (req: NextApiRequest, res: NextApiResponse<object>) => {
-  const { method } = req;
-
-  switch (method) {
-    case "POST":
-      return handlePost(req, res);
-    default:
-      return notAllowedMethod(req, res, ["GET"]);
-  }
+const methods: Methods<Response> = {
+  POST: handlePost,
 };
+
+const handler = async (req: NextApiRequest, res: NextApiResponse<Response>) =>
+  handleRequest(req, res, methods);
 
 export default handler;

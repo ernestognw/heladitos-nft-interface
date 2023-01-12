@@ -1,12 +1,11 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { Variants } from "@config/types";
-import { getVariants, notAllowedMethod } from "@config/api/utils";
+import { getVariants, handleRequest, Methods } from "@config/api/utils";
 import { ApiError } from "@config/api/types";
 
-const handleGet = (
-  req: NextApiRequest,
-  res: NextApiResponse<Variants | ApiError>
-) => {
+type Response = Variants | ApiError;
+
+const handleGet = (req: NextApiRequest, res: NextApiResponse<Response>) => {
   const {
     query: { trait },
   } = req;
@@ -19,18 +18,11 @@ const handleGet = (
   }
 };
 
-const handler = (
-  req: NextApiRequest,
-  res: NextApiResponse<Variants | ApiError>
-) => {
-  const { method } = req;
-
-  switch (method) {
-    case "GET":
-      return handleGet(req, res);
-    default:
-      return notAllowedMethod(req, res, ["GET"]);
-  }
+const methods: Methods<Response> = {
+  GET: handleGet,
 };
+
+const handler = (req: NextApiRequest, res: NextApiResponse<Response>) =>
+  handleRequest(req, res, methods);
 
 export default handler;

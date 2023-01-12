@@ -1,16 +1,18 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { Traits } from "@config/types";
-import { getTraits, notAllowedMethod } from "@config/api/utils";
+import { getTraits, handleRequest, Methods } from "@config/api/utils";
+import { ApiError } from "@config/api/types";
 
-const handler = (req: NextApiRequest, res: NextApiResponse<Traits>) => {
-  const { method } = req;
+type Response = Traits | ApiError;
 
-  switch (method) {
-    case "GET":
-      return res.status(200).json(getTraits());
-    default:
-      return notAllowedMethod(req, res, ["GET"]);
-  }
+const handleGet = (_: NextApiRequest, res: NextApiResponse<Response>) =>
+  res.status(200).json(getTraits());
+
+const methods: Methods<Response> = {
+  GET: handleGet,
 };
+
+const handler = (req: NextApiRequest, res: NextApiResponse<Response>) =>
+  handleRequest(req, res, methods);
 
 export default handler;

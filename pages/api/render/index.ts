@@ -7,11 +7,13 @@ import { toHtml } from "hast-util-to-html";
 import { ElementNode, parse } from "svg-parser";
 import { Root, ElementContent } from "hast";
 import {
-  notAllowedMethod,
   getVariantSVGPath,
   getVariants,
   getTraitNames,
+  handleRequest,
+  Methods,
 } from "@config/api/utils";
+import { ApiError } from "@config/api/types";
 
 export const getValidTraits = (query: {
   [key: string]: string | string[];
@@ -98,6 +100,8 @@ export const getSvgFromQuery = (query: NextApiRequest["query"]) => {
   return getMergedSVG(svgElements);
 };
 
+type Response = string | ApiError;
+
 const handleGet = (req: NextApiRequest, res: NextApiResponse<string>) => {
   const { query } = req;
   const mergedSvg = getSvgFromQuery(query);
@@ -107,15 +111,11 @@ const handleGet = (req: NextApiRequest, res: NextApiResponse<string>) => {
   return res.end();
 };
 
-const handler = (req: NextApiRequest, res: NextApiResponse<string>) => {
-  const { method } = req;
-
-  switch (method) {
-    case "GET":
-      return handleGet(req, res);
-    default:
-      return notAllowedMethod(req, res, ["GET"]);
-  }
+const methods: Methods<Response> = {
+  GET: handleGet,
 };
+
+const handler = (req: NextApiRequest, res: NextApiResponse<Response>) =>
+  handleRequest(req, res, methods);
 
 export default handler;
