@@ -26,14 +26,14 @@ const About: FC = () => {
         <p className="mt-4">
           In a Global South country, were violence and climate crisis forced
           people to migrate, an ice-cream cart arrived to a big crowd, playing
-          the classic melody to atract the childhoods and their parents.
+          the classic melody to attract the childhoods and their parents.
         </p>
         <p className="mt-4">
-          The people started to hoard the cart, thisrty, with little water,
+          The people started to hoard the cart, thirsty, with little water,
           waiting to get refreshed.
         </p>
         <p className="mt-4">
-          What people didn{`'`}t knew was that those ice creams were
+          What people didn{`'`}t know was that those ice creams were
           accidentally dipped with the{" "}
           <span className="font-bold">&quot;J-Chemical&quot;</span>: an element
           capable of waking up people
@@ -47,7 +47,7 @@ const About: FC = () => {
         <p className="mt-4">
           Technology stopped being exclusive to the big corporations, and was
           distributed to get justice. The{" "}
-          <span className="font-bold">HELADITOS</span> revolution began.
+          <span className="font-bold">HELADITOS</span> revolution has begun.
         </p>
       </div>
       <Image
